@@ -1,0 +1,82 @@
+name: Submit a Resource
+description: Suggest a resource, prompt, or tool to add to the awesome list.
+title: "[Resource] "
+labels: ["submission"]
+body:
+  - type: dropdown
+    id: category
+    attributes:
+      label: Category
+      description: Which section should this resource be added to?
+      options:
+        - "Prompts: Mobile App UI"
+        - "Prompts: Web App UI / Landing Page"
+        - "Prompts: Dashboard / Admin"
+        - "Prompts: E-commerce"
+        - "Prompts: Social Media"
+        - Sketch to Design
+        - Tutorials & Guides
+        - SDK & MCP
+        - Tools & Extensions
+        - Articles & Blog Posts
+        - Videos
+        - Community
+        - Other
+    validations:
+      required: true
+
+  - type: input
+    id: title
+    attributes:
+      label: Resource Title
+      description: The name of the resource.
+      placeholder: "e.g., Stitch Design Patterns"
+    validations:
+      required: true
+
+  - type: input
+    id: url
+    attributes:
+      label: URL
+      description: Link to the resource.
+      placeholder: "https://..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: A brief (one sentence) description of the resource.
+      placeholder: "A collection of reusable design patterns for Google Stitch."
+    validations:
+      required: true
+
+  - type: textarea
+    id: prompt
+    attributes:
+      label: Prompt Text (if submitting a prompt)
+      description: If you are submitting a design prompt, paste the exact prompt text here.
+      placeholder: "Design a modern fintech app dashboard with..."
+    validations:
+      required: false
+
+  - type: textarea
+    id: preview
+    attributes:
+      label: Preview Image
+      description: If submitting a prompt, drag and drop a screenshot of the generated result here.
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: Submission Checklist
+      options:
+        - label: This resource is directly related to Google Stitch.
+          required: true
+        - label: The link is working and accessible.
+          required: true
+        - label: This resource is not already listed in the README.
+          required: true
