@@ -1314,9 +1314,9 @@
   <!-- Hero -->
   <section class="hero">
     <div class="hero-content">
-      <div class="hero-badge">
+      <div class="hero-badge" id="heroBadge">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-        44 Curated Prompts
+        <span id="heroBadgeCount"></span> Curated Prompts
       </div>
       <h1>Discover the Best UI Design Prompts</h1>
       <p>Browse curated prompts for Google Stitch across landing pages, dashboards, e-commerce, admin panels, and more. Copy any prompt and paste it into Stitch to generate stunning designs.</p>
@@ -1329,15 +1329,15 @@
       </div>
       <div class="stats">
         <div class="stat">
-          <div class="stat-value">44</div>
+          <div class="stat-value" id="statPrompts">0</div>
           <div class="stat-label">Prompts</div>
         </div>
         <div class="stat">
-          <div class="stat-value">5</div>
+          <div class="stat-value" id="statCategories">0</div>
           <div class="stat-label">Categories</div>
         </div>
         <div class="stat">
-          <div class="stat-value">22</div>
+          <div class="stat-value" id="statPageTypes">0</div>
           <div class="stat-label">Page Types</div>
         </div>
       </div>
@@ -2233,7 +2233,21 @@
       requestAnimationFrame(() => setTimeout(setupHoverScroll, 100));
     };
 
+    // ===== Dynamic stats =====
+    function updateStats() {
+      const totalPrompts = cards.length;
+      const categories = new Set(cards.map(c => c.category));
+      const pageTypes = new Set(cards.map(c => c.id.replace(/-\d+$/, '').replace(/^(landing|pricing|about|team|blog|portfolio|dashboard|settings|onboarding|signup|chat|feed|listing|detail|cart|checkout|tracking|login|404|search|email|cms|admin|table|kanban|calendar).*/, '$1')));
+
+      document.getElementById('heroBadgeCount').textContent = totalPrompts;
+      document.getElementById('statPrompts').textContent = totalPrompts;
+      document.getElementById('statCategories').textContent = categories.size;
+      // Page types: count unique subcategory titles (each pair shares a type)
+      document.getElementById('statPageTypes').textContent = Math.ceil(totalPrompts / 2);
+    }
+
     // ===== Init =====
+    updateStats();
     renderCards();
   </script>
 </body>
