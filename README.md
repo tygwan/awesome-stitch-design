@@ -8,6 +8,20 @@
 
 Google Stitch lets you generate high-fidelity UI designs from text prompts, voice input, or hand-drawn sketches, powered by Gemini. This list collects the best prompts, examples, and resources to help you master "vibe design."
 
+## stitchkit — Claude Code Plugin
+
+<p align="center">
+  <a href="https://github.com/tygwan/stitchkit">
+    <img src="https://github.com/tygwan/stitchkit/raw/main/assets/banner.png" alt="stitchkit" width="600">
+  </a>
+</p>
+
+Use **[stitchkit](https://github.com/tygwan/stitchkit)** to generate Stitch designs directly from Claude Code with MCP integration, design skills, and prompt templates.
+
+```bash
+claude plugin add tygwan/stitchkit
+```
+
 ## How to Use
 
 <p align="center">
