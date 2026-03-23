@@ -1,66 +1,88 @@
 # Contributing to Awesome Stitch Design
 
-Thank you for your interest in contributing! This project aims to be the most comprehensive collection of Google Stitch design resources.
+Thank you for your interest in contributing! This project collects the best Google Stitch design prompts and resources.
 
 ## How to Contribute
 
 ### Option 1: Pull Request (Preferred)
 
-1. Fork this repository.
-2. Add your resource to the appropriate section in `README.md`.
-3. Submit a Pull Request.
+1. Fork this repository
+2. Add your prompt to `README.md` and the gallery (`docs/index.html`)
+3. Add a preview screenshot to `docs/previews/{category}/`
+4. Submit a Pull Request
 
 ### Option 2: Issue
 
 [Submit a resource via Issue](https://github.com/tygwan/awesome-stitch-design/issues/new?template=submit-resource.yml) and we'll add it for you.
 
-## Adding a Resource
+## Adding a Design Prompt
 
-When adding a resource link, use this format:
+Contributing a prompt requires 3 files:
+
+### Step 1: Add to README.md
+
+Add your prompt under the correct category/subcategory:
+
+```markdown
+- **Your Title** - `Your detailed Stitch prompt text here` — Brief description of the result.
+```
+
+Categories: Marketing & Public, Product & App, Commerce, Utility, Admin.
+
+### Step 2: Add a preview image
+
+1. Generate your design in [Google Stitch](https://stitch.withgoogle.com)
+2. Download the screenshot (1280px width recommended)
+3. Save to `docs/previews/{category}/your-filename.png`
+
+Category folders: `marketing`, `product`, `commerce`, `utility`, `admin`
+
+### Step 3: Add a gallery card
+
+In `docs/index.html`, find the `const cards = [...]` array and add your entry:
+
+```javascript
+{
+  id: 'your-unique-id',
+  title: 'Your Title',
+  description: 'Brief description of the result.',
+  prompt: 'Your full Stitch prompt text...',
+  image: 'previews/{category}/your-filename.png',
+  category: 'marketing', // or product, commerce, utility, admin
+  device: 'Desktop',     // or Mobile
+  discussionNumber: null, // maintainer will create the Discussion
+  featured: false,
+  contributor: { username: 'your-github-username', name: 'Your Name' }
+}
+```
+
+> The maintainer will create a GitHub Discussion for voting and assign the `discussionNumber` after merging.
+
+## Adding a Resource Link
+
+For non-prompt resources (tutorials, tools, articles), add to the appropriate section in `README.md`:
 
 ```markdown
 - [Resource Title](https://example.com) - Brief description of the resource.
 ```
 
-### Guidelines
-
-- Make sure the resource is directly related to Google Stitch.
-- Check that the link is working and not a duplicate.
-- Write a concise, clear description (one sentence).
-- Add the resource to the appropriate category.
-- Keep entries in alphabetical order within each section.
-
-## Adding a Prompt
-
-When adding a design prompt, include the following:
-
-```markdown
-- **Prompt Title** - `Your prompt text here` — Brief description of what it generates. [Preview](link-to-image)
-```
-
-### Prompt Guidelines
-
-- The prompt must produce meaningful, high-quality results in Google Stitch.
-- Include a preview image or link showing the generated result.
-- Specify the target platform (mobile, web, tablet) if applicable.
-- Categorize it under the correct subcategory.
+Keep entries in alphabetical order within resource sections.
 
 ## Quality Standards
 
 - **Original or properly attributed** — Do not submit others' work without credit.
 - **Working links** — All URLs must be accessible.
-- **English descriptions** — Descriptions should be in English (prompts can be in any language Stitch supports).
-- **SFW content only** — No NSFW or inappropriate content.
+- **English descriptions** — Descriptions should be in English.
+- **SFW content only** — No inappropriate content.
+- **Tested prompts** — Prompts must produce meaningful results in Stitch.
 
 ## Pull Request Checklist
 
-Before submitting your PR, make sure:
-
-- [ ] The resource/prompt is related to Google Stitch.
-- [ ] The link works and is not a duplicate.
-- [ ] The description follows the format guidelines.
-- [ ] The entry is placed in the correct category.
-- [ ] Alphabetical order is maintained within the section.
+- [ ] The resource/prompt is related to Google Stitch
+- [ ] Preview screenshot is included (for prompts)
+- [ ] Gallery card entry added to `docs/index.html` (for prompts)
+- [ ] Format guidelines are followed
+- [ ] Entry is in the correct category
 
 ## Questions?
 

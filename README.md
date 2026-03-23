@@ -83,7 +83,7 @@ We welcome contributions from everyone! Share your best Stitch prompts and desig
 
 ## Tools & Extensions
 
-- [Stitch Figma Plugin](https://www.figma.com/community/plugin/stitch) - Import Stitch designs directly into Figma projects.
+- Stitch Figma Plugin - Import Stitch designs directly into Figma. *(Search "Stitch" in [Figma Community](https://www.figma.com/community) plugins)*
 - [Antigravity](https://labs.google/antigravity) - Google Labs tool that pairs with Stitch for design-to-code workflows.
 
 ## Articles & Blog Posts
@@ -95,7 +95,7 @@ We welcome contributions from everyone! Share your best Stitch prompts and desig
 
 ## Videos
 
-- [Google Stitch: AI UI Design in Minutes](https://www.youtube.com/results?search_query=google+stitch+ui+design) - Search for the latest Stitch tutorials and demos on YouTube.
+- Search "Google Stitch" on [YouTube](https://www.youtube.com/results?search_query=google+stitch+ui+design) for tutorials and demos.
 
 ## Community
 

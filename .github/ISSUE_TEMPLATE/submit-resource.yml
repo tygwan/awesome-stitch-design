@@ -9,11 +9,11 @@ body:
       label: Category
       description: Which section should this resource be added to?
       options:
-        - "Prompts: Mobile App UI"
-        - "Prompts: Web App UI / Landing Page"
-        - "Prompts: Dashboard / Admin"
-        - "Prompts: E-commerce"
-        - "Prompts: Social Media"
+        - "Prompts: Marketing & Public"
+        - "Prompts: Product & App"
+        - "Prompts: Commerce"
+        - "Prompts: Utility"
+        - "Prompts: Admin"
         - Sketch to Design
         - Tutorials & Guides
         - SDK & MCP
