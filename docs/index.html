@@ -265,6 +265,20 @@
     .search-clear.visible { display: flex; }
     .search-clear:hover { color: var(--text-heading); }
 
+    .sort-wrapper { margin-top: 0.5rem; }
+    .sort-select {
+      font-family: var(--font);
+      font-size: 0.8rem;
+      padding: 6px 12px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      background: var(--bg);
+      color: var(--text-body);
+      cursor: pointer;
+      outline: none;
+    }
+    .sort-select:focus { border-color: var(--accent); }
+
     /* ===== Gallery Grid ===== */
     .gallery-section {
       max-width: 1200px;
@@ -899,6 +913,14 @@
       <input type="text" class="search-input" id="searchInput" placeholder="Search prompts...">
       <button class="search-clear" id="searchClear" aria-label="Clear search">&times;</button>
     </div>
+    <div class="sort-wrapper">
+      <select id="sortSelect" class="sort-select">
+        <option value="shuffle">Shuffle</option>
+        <option value="newest">Newest</option>
+        <option value="oldest">Oldest</option>
+        <option value="az">A → Z</option>
+      </select>
+    </div>
   </section>
 
   <!-- Gallery -->
@@ -1039,9 +1061,23 @@
         `<span>${totalPrompts}</span> Prompts &middot; <span>${categories.size}</span> Categories &middot; <span>${pageTypes.size}</span> Page Types`;
     }
 
+    // ===== Shuffle utility =====
+    function shuffleArray(arr) {
+      const a = [...arr];
+      for (let i = a.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [a[i], a[j]] = [a[j], a[i]];
+      }
+      return a;
+    }
+
+    let currentSort = 'shuffle';
+    const sortSelect = document.getElementById('sortSelect');
+    sortSelect.addEventListener('change', () => { currentSort = sortSelect.value; renderCards(); });
+
     // ===== Render Cards =====
     function renderCards() {
-      const filtered = cards.filter(card => {
+      let filtered = cards.filter(card => {
         const matchCategory = activeCategory === 'all' ||
           (activeCategory === 'featured' ? card.featured === true : card.category === activeCategory);
         const matchSearch = searchQuery === '' ||
@@ -1051,6 +1087,11 @@
           card.category.toLowerCase().includes(searchQuery);
         return matchCategory && matchSearch;
       });
+
+      // Sort
+      if (currentSort === 'shuffle') filtered = shuffleArray(filtered);
+      else if (currentSort === 'newest') filtered = [...filtered].reverse();
+      else if (currentSort === 'az') filtered = [...filtered].sort((a, b) => a.title.localeCompare(b.title));
 
       if (filtered.length === 0) {
         galleryGrid.innerHTML = '';
