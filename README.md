@@ -8,6 +8,16 @@
 
 Google Stitch lets you generate high-fidelity UI designs from text prompts, voice input, or hand-drawn sketches, powered by Gemini. This list collects the best prompts, examples, and resources to help you master "vibe design."
 
+## How to Contribute
+
+We welcome contributions from everyone! Share your best Stitch prompts and designs:
+
+1. **Browse the [Gallery](https://tygwan.github.io/awesome-stitch-design/)** to see existing prompts
+2. **[Submit via Pull Request](CONTRIBUTING.md)** — Fork, add your prompt with a preview, and submit a PR
+3. **[Submit via Issue](https://github.com/tygwan/awesome-stitch-design/issues/new?template=submit-resource.yml)** — Fill out the form and we'll add it for you
+
+> Your GitHub profile will be displayed alongside your contribution in the gallery.
+
 ## Contents
 
 - [Official Resources](#official-resources)
