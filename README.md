@@ -3,8 +3,15 @@
 [![GitHub stars](https://img.shields.io/github/stars/tygwan/awesome-stitch-design?style=social)](https://github.com/tygwan/awesome-stitch-design)
 [![License: CC BY 4.0](https://img.shields.io/badge/License-CC%20BY%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by/4.0/)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
+[![Browse Gallery](https://img.shields.io/badge/Browse_Gallery-Live-blueviolet?style=for-the-badge)](https://tygwan.github.io/awesome-stitch-design/)
 
 > A curated list of awesome design prompts, resources, tutorials, and tools for [Google Stitch](https://stitch.withgoogle.com) — the AI-powered UI design tool by Google Labs.
+
+<p align="center">
+  <a href="https://tygwan.github.io/awesome-stitch-design/">
+    <img src="assets/gallery-cta.png" alt="Browse the Gallery" width="600">
+  </a>
+</p>
 
 Google Stitch lets you generate high-fidelity UI designs from text prompts, voice input, or hand-drawn sketches, powered by Gemini. This list collects the best prompts, examples, and resources to help you master "vibe design."
 
@@ -32,7 +39,18 @@ claude plugin add tygwan/stitchkit
 2. **Generate with Stitch** — Paste the prompt into [Google Stitch](https://stitch.withgoogle.com) and generate your design
 3. **Share & Contribute** — Share your best results with the community!
 
-> **Browse the [Gallery](https://tygwan.github.io/awesome-stitch-design/)** to discover and copy 44+ curated prompts.
+### Stitch Input Methods
+
+Stitch accepts multiple input types for design generation:
+
+| Input | Description | MCP Support |
+|---|---|---|
+| **Text Prompt** | Describe the UI in natural language | Stitch MCP |
+| **Image/Screenshot** | Upload a reference image or existing design | Stitch Web only |
+| **Sketch** | Upload a hand-drawn wireframe or sketch | Stitch Web only |
+| **URL** | Provide a website URL as design reference | Stitch Web only |
+
+> **Tip:** Use [stitchkit](https://github.com/tygwan/stitchkit) to combine Stitch (UI layouts) + [NanoBanana](https://github.com/tygwan/nanobanana-mcp) (image generation with reference support) for a complete design workflow in Claude Code.
 
 ## How to Contribute
 
