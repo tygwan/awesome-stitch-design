@@ -1,0 +1,197 @@
+name: Sync README from prompts.json
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'docs/data/prompts.json'
+
+permissions:
+  contents: write
+
+jobs:
+  sync-readme:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Regenerate README prompts section
+        run: |
+          set -euo pipefail
+
+          python3 << 'PYEOF'
+          import json
+          import re
+
+          # ── Load prompts data ──
+          with open("docs/data/prompts.json", "r") as f:
+              prompts = json.load(f)
+
+          if not prompts:
+              print("No prompts in prompts.json, skipping README update.")
+              exit(0)
+
+          # ── Category display config ──
+          CATEGORIES = {
+              "marketing": {
+                  "heading": "Marketing & Public",
+                  "stitch_url": "https://stitch.withgoogle.com/project/14974846880237249166",
+              },
+              "product": {
+                  "heading": "Product & App",
+                  "stitch_url": "https://stitch.withgoogle.com/project/1126015643567755569",
+              },
+              "commerce": {
+                  "heading": "Commerce",
+                  "stitch_url": "https://stitch.withgoogle.com/project/2157348259102091111",
+              },
+              "utility": {
+                  "heading": "Utility",
+                  "stitch_url": "https://stitch.withgoogle.com/project/10175925422570894411",
+              },
+              "admin": {
+                  "heading": "Admin",
+                  "stitch_url": "https://stitch.withgoogle.com/project/515752841948986130",
+              },
+          }
+
+          # Page-type groupings derived from prompt IDs
+          PAGE_TYPES = {
+              "marketing": [
+                  ("Landing Page", ["landing"]),
+                  ("Pricing Page", ["pricing"]),
+                  ("About / Team Page", ["about", "team"]),
+                  ("Blog / Article", ["blog"]),
+                  ("Portfolio / Showcase", ["portfolio"]),
+              ],
+              "product": [
+                  ("Dashboard / Analytics", ["dashboard", "banking"]),
+                  ("Settings / Profile", ["settings", "profile"]),
+                  ("Onboarding / Sign-up", ["onboarding", "signup", "sign-up"]),
+                  ("Chat / Messaging", ["chat", "messaging"]),
+                  ("Feed / Timeline", ["feed", "news"]),
+              ],
+              "commerce": [
+                  ("Product Listing", ["catalog", "listing"]),
+                  ("Product Detail", ["headphone", "skincare", "pdp", "product-detail"]),
+                  ("Cart / Checkout", ["cart", "checkout", "payment"]),
+                  ("Order Tracking", ["tracking", "delivery"]),
+              ],
+              "utility": [
+                  ("Login / Auth", ["login", "auth"]),
+                  ("404 / Error Page", ["404", "error"]),
+                  ("Search Results", ["search"]),
+                  ("Email / Newsletter", ["email", "digest", "newsletter"]),
+              ],
+              "admin": [
+                  ("Admin Panel / CMS", ["cms", "admin-panel", "multi-tenant"]),
+                  ("Data Table / CRUD", ["user-management", "inventory", "crud", "table"]),
+                  ("Kanban Board", ["kanban", "sprint"]),
+                  ("Calendar / Scheduling", ["calendar", "booking", "appointment"]),
+              ],
+          }
+
+          def classify_prompt(prompt_id, category):
+              """Try to match a prompt to a page type based on its ID."""
+              pid = prompt_id.lower()
+              if category in PAGE_TYPES:
+                  for page_type, keywords in PAGE_TYPES[category]:
+                      for kw in keywords:
+                          if kw in pid:
+                              return page_type
+              return "Other"
+
+          # ── Group prompts by category, then by page type ──
+          grouped = {}
+          for p in prompts:
+              cat = p.get("category", "other")
+              page_type = classify_prompt(p["id"], cat)
+              grouped.setdefault(cat, {}).setdefault(page_type, []).append(p)
+
+          # ── Build the Prompts markdown section ──
+          lines = ["## Prompts\n"]
+
+          for cat_slug in ["marketing", "product", "commerce", "utility", "admin"]:
+              if cat_slug not in grouped and cat_slug not in CATEGORIES:
+                  continue
+
+              cfg = CATEGORIES.get(cat_slug, {"heading": cat_slug.title(), "stitch_url": ""})
+              lines.append(f"### {cfg['heading']}\n")
+              if cfg["stitch_url"]:
+                  lines.append(f"> [Stitch Project]({cfg['stitch_url']}) — All {cfg['heading']} prompts previewed here.\n")
+
+              cat_data = grouped.get(cat_slug, {})
+
+              # Preserve page-type ordering from PAGE_TYPES
+              page_type_order = [pt[0] for pt in PAGE_TYPES.get(cat_slug, [])] + ["Other"]
+              seen = set()
+
+              for pt_name in page_type_order:
+                  if pt_name not in cat_data:
+                      continue
+                  seen.add(pt_name)
+                  lines.append(f"#### {pt_name}\n")
+                  for p in cat_data[pt_name]:
+                      prompt_text = p.get("prompt", "")
+                      desc = p.get("description", "")
+                      title = p.get("title", "")
+                      lines.append(f"- **{title}** - `{prompt_text}` — {desc}")
+                  lines.append("")
+
+              # Any page types not in the predefined order
+              for pt_name, pt_prompts in cat_data.items():
+                  if pt_name in seen:
+                      continue
+                  lines.append(f"#### {pt_name}\n")
+                  for p in pt_prompts:
+                      prompt_text = p.get("prompt", "")
+                      desc = p.get("description", "")
+                      title = p.get("title", "")
+                      lines.append(f"- **{title}** - `{prompt_text}` — {desc}")
+                  lines.append("")
+
+              lines.append("---\n")
+
+          prompts_section = "\n".join(lines).rstrip("\n") + "\n"
+
+          # ── Read existing README ──
+          with open("README.md", "r") as f:
+              readme = f.read()
+
+          # ── Replace the Prompts section ──
+          # The Prompts section starts with "## Prompts" and ends before the next
+          # H2 that is NOT a child of Prompts (i.e., "## Contributing" or similar)
+          pattern = r"(## Prompts\n).*?(\n## (?!Prompts))"
+          match = re.search(pattern, readme, re.DOTALL)
+
+          if match:
+              # Replace everything between "## Prompts\n" and the next "## "
+              before = readme[:match.start()]
+              after = readme[match.end() - len(match.group(2)):]
+              new_readme = before + prompts_section + "\n" + after
+          else:
+              print("WARNING: Could not find ## Prompts section boundary in README.md")
+              print("Skipping README update.")
+              exit(0)
+
+          with open("README.md", "w") as f:
+              f.write(new_readme)
+
+          print("README.md updated successfully.")
+          PYEOF
+
+      - name: Check for changes and commit
+        run: |
+          git config user.name "coffin"
+          git config user.email "tygwan@users.noreply.github.com"
+
+          if git diff --quiet README.md; then
+            echo "No changes to README.md"
+            exit 0
+          fi
+
+          git add README.md
+          git commit -m "docs: sync README prompts section from prompts.json"
+          git push

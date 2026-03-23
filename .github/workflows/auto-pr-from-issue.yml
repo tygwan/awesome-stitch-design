@@ -1,0 +1,199 @@
+name: Auto PR from Issue
+
+on:
+  issues:
+    types: [opened]
+
+permissions:
+  contents: write
+  pull-requests: write
+  issues: write
+
+jobs:
+  create-pr:
+    if: contains(github.event.issue.labels.*.name, 'submission')
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Parse issue body and create PR
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+          ISSUE_AUTHOR: ${{ github.event.issue.user.login }}
+          ISSUE_BODY: ${{ github.event.issue.body }}
+        run: |
+          set -euo pipefail
+
+          # ── Parse structured fields from the issue body ──
+          # GitHub issue forms render as:
+          #   ### Label
+          #   <blank line>
+          #   Value
+          parse_field() {
+            local label="$1"
+            echo "$ISSUE_BODY" | awk -v label="### $label" '
+              $0 == label { found=1; next }
+              found && /^[[:space:]]*$/ { next }
+              found && /^### / { exit }
+              found { print; exit }
+            ' | sed 's/^[[:space:]]*//;s/[[:space:]]*$//'
+          }
+
+          parse_multiline_field() {
+            local label="$1"
+            echo "$ISSUE_BODY" | awk -v label="### $label" '
+              $0 == label { found=1; next }
+              found && !started && /^[[:space:]]*$/ { next }
+              found && /^### / { exit }
+              found { started=1; print }
+            ' | sed 's/[[:space:]]*$//'
+          }
+
+          CATEGORY=$(parse_field "Category")
+          TITLE=$(parse_field "Resource Title")
+          URL=$(parse_field "URL")
+          DESCRIPTION=$(parse_field "Description")
+          PROMPT=$(parse_multiline_field "Prompt Text (if submitting a prompt)")
+          PREVIEW_RAW=$(parse_multiline_field "Preview Image")
+
+          echo "Category:    $CATEGORY"
+          echo "Title:       $TITLE"
+          echo "URL:         $URL"
+          echo "Description: $DESCRIPTION"
+          echo "Prompt:      $PROMPT"
+          echo "Preview raw: $PREVIEW_RAW"
+
+          # ── Only proceed for Prompts categories ──
+          if [[ ! "$CATEGORY" =~ ^Prompts: ]]; then
+            echo "Category '$CATEGORY' does not start with 'Prompts:'. Skipping."
+            exit 0
+          fi
+
+          # ── Map category to slug ──
+          case "$CATEGORY" in
+            "Prompts: Marketing & Public") CAT_SLUG="marketing" ;;
+            "Prompts: Product & App")      CAT_SLUG="product"   ;;
+            "Prompts: Commerce")           CAT_SLUG="commerce"  ;;
+            "Prompts: Utility")            CAT_SLUG="utility"   ;;
+            "Prompts: Admin")              CAT_SLUG="admin"     ;;
+            *)
+              echo "Unknown Prompts category: $CATEGORY"
+              exit 1
+              ;;
+          esac
+
+          # ── Generate slug from title ──
+          SLUG=$(echo "$TITLE" | tr '[:upper:]' '[:lower:]' | sed 's/[^a-z0-9]/-/g' | sed 's/--*/-/g' | sed 's/^-//;s/-$//')
+          echo "Slug: $SLUG"
+
+          # ── Download preview image if present ──
+          IMAGE_URL=""
+          if echo "$PREVIEW_RAW" | grep -qoP 'https://[^\s\)]+\.(png|jpg|jpeg|gif|webp)'; then
+            IMAGE_CDN=$(echo "$PREVIEW_RAW" | grep -oP 'https://[^\s\)]+\.(png|jpg|jpeg|gif|webp)' | head -1)
+            echo "Downloading preview image: $IMAGE_CDN"
+            mkdir -p "docs/previews/${CAT_SLUG}"
+            IMAGE_PATH="docs/previews/${CAT_SLUG}/${SLUG}.png"
+            curl -fsSL -o "$IMAGE_PATH" "$IMAGE_CDN"
+            IMAGE_URL="previews/${CAT_SLUG}/${SLUG}.png"
+            echo "Image saved to: $IMAGE_PATH"
+          else
+            echo "No preview image found in submission."
+          fi
+
+          # ── Ensure docs/data/prompts.json exists ──
+          mkdir -p docs/data
+          if [ ! -f docs/data/prompts.json ]; then
+            echo "[]" > docs/data/prompts.json
+          fi
+
+          # ── Escape strings for JSON ──
+          json_escape() {
+            python3 -c "import json,sys; print(json.dumps(sys.stdin.read().strip()))"
+          }
+
+          TITLE_JSON=$(echo "$TITLE" | json_escape)
+          DESC_JSON=$(echo "$DESCRIPTION" | json_escape)
+          PROMPT_JSON=$(echo "$PROMPT" | json_escape)
+          IMAGE_JSON=$(echo "$IMAGE_URL" | json_escape)
+
+          # ── Build new entry and append to prompts.json ──
+          NEW_ENTRY=$(python3 -c "
+          import json, sys
+
+          title = $TITLE_JSON
+          desc = $DESC_JSON
+          prompt = $PROMPT_JSON
+          image = $IMAGE_JSON
+          slug = '$SLUG'
+          cat_slug = '$CAT_SLUG'
+          author = '$ISSUE_AUTHOR'
+
+          entry = {
+              'id': slug,
+              'title': title,
+              'description': desc,
+              'prompt': prompt,
+              'image': image if image else '',
+              'category': cat_slug,
+              'device': 'Desktop',
+              'discussionNumber': None,
+              'featured': False,
+              'contributor': {
+                  'username': author,
+                  'name': author
+              }
+          }
+
+          with open('docs/data/prompts.json', 'r') as f:
+              data = json.load(f)
+
+          data.append(entry)
+
+          with open('docs/data/prompts.json', 'w') as f:
+              json.dump(data, f, indent=2, ensure_ascii=False)
+
+          print(json.dumps(entry, indent=2))
+          ")
+
+          echo "New entry added:"
+          echo "$NEW_ENTRY"
+
+          # ── Create branch and commit ──
+          BRANCH="add-prompt/${SLUG}"
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git checkout -b "$BRANCH"
+
+          git add docs/data/prompts.json
+          if [ -n "$IMAGE_URL" ]; then
+            git add "docs/previews/${CAT_SLUG}/${SLUG}.png"
+          fi
+
+          git commit -m "Add prompt: ${TITLE}
+
+          Auto-generated from #${ISSUE_NUMBER}
+          Submitted by @${ISSUE_AUTHOR}"
+
+          git push origin "$BRANCH"
+
+          # ── Create pull request ──
+          PR_URL=$(gh pr create \
+            --base main \
+            --head "$BRANCH" \
+            --title "Add prompt: ${TITLE}" \
+            --body "Auto-generated from #${ISSUE_NUMBER}
+
+          Submitted by @${ISSUE_AUTHOR}
+
+          ${DESCRIPTION}" \
+            --label "auto-pr")
+
+          PR_NUMBER=$(echo "$PR_URL" | grep -oP '\d+$')
+          echo "PR created: $PR_URL (number: $PR_NUMBER)"
+
+          # ── Comment on the original issue ──
+          gh issue comment "$ISSUE_NUMBER" \
+            --body "PR #${PR_NUMBER} has been automatically created. A maintainer will review and merge it."
