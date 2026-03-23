@@ -7,232 +7,232 @@
   <meta name="description" content="A curated gallery of awesome UI design prompts for Google Stitch. Browse, preview, and copy prompts for landing pages, dashboards, e-commerce, and more.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
-    /* ===== Reset & Base ===== */
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
+    /* ===== CSS Custom Properties ===== */
     :root {
-      --bg-primary: #0c0e17;
-      --bg-card: #1c1f2b;
-      --bg-card-hover: #242838;
-      --bg-surface: #151824;
-      --text-primary: #f0f1f5;
-      --text-secondary: #9ca3b4;
-      --text-muted: #6b7280;
-      --accent-purple: #8b5cf6;
-      --accent-blue: #3b82f6;
-      --accent-gradient: linear-gradient(135deg, #8b5cf6 0%, #3b82f6 100%);
-      --accent-gradient-hover: linear-gradient(135deg, #7c3aed 0%, #2563eb 100%);
-      --border-color: #2a2d3e;
-      --radius-sm: 6px;
-      --radius-md: 10px;
-      --radius-lg: 16px;
-      --radius-xl: 20px;
-      --shadow-card: 0 4px 24px rgba(0, 0, 0, 0.3);
-      --shadow-card-hover: 0 12px 40px rgba(0, 0, 0, 0.5);
-      --transition-base: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-      --font: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      --bg: #FAFAFA;
+      --bg-section: #F5F5F4;
+      --bg-card: #FFFFFF;
+      --border: #E5E7EB;
+      --text-heading: #111827;
+      --text-body: #6B7280;
+      --text-muted: #9CA3AF;
+      --accent: #0D9488;
+      --accent-hover: #0F766E;
+      --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      --transition: 200ms ease;
     }
+
+    html[data-theme="dark"] {
+      --bg: #1C1C1E;
+      --bg-section: #2C2C2E;
+      --bg-card: #3A3A3C;
+      --border: #4A4A4C;
+      --text-heading: #E5E5E7;
+      --text-body: #9CA3AF;
+      --text-muted: #6B7280;
+      --accent: #5EEAD4;
+      --accent-hover: #2DD4BF;
+    }
+
+    /* ===== Reset ===== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     html { scroll-behavior: smooth; }
 
     body {
       font-family: var(--font);
-      background: var(--bg-primary);
-      color: var(--text-primary);
+      background: var(--bg);
+      color: var(--text-body);
       line-height: 1.6;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
+      transition: background var(--transition), color var(--transition);
     }
 
     a { color: inherit; text-decoration: none; }
     img { max-width: 100%; display: block; }
-    button { font-family: var(--font); cursor: pointer; border: none; }
+    button { font-family: var(--font); cursor: pointer; border: none; background: none; }
 
     /* ===== Header ===== */
     .header {
-      position: fixed;
+      position: sticky;
       top: 0;
-      left: 0;
-      right: 0;
       z-index: 100;
-      background: rgba(12, 14, 23, 0.85);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      border-bottom: 1px solid var(--border-color);
-      transition: background var(--transition-base);
+      background: var(--bg);
+      border-bottom: 1px solid var(--border);
+      transition: background var(--transition), border-color var(--transition);
     }
 
     .header-inner {
-      max-width: 1280px;
+      max-width: 1200px;
       margin: 0 auto;
       padding: 0 24px;
-      height: 64px;
+      height: 56px;
       display: flex;
       align-items: center;
       justify-content: space-between;
     }
 
     .logo {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-weight: 800;
-      font-size: 1.15rem;
-      letter-spacing: -0.02em;
-    }
-
-    .logo-icon {
-      width: 32px;
-      height: 32px;
-      background: var(--accent-gradient);
-      border-radius: var(--radius-sm);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 16px;
-      color: white;
+      font-weight: 500;
+      font-size: 0.95rem;
+      color: var(--text-heading);
+      letter-spacing: -0.01em;
+      transition: color var(--transition);
     }
 
     .header-right {
       display: flex;
       align-items: center;
-      gap: 20px;
+      gap: 24px;
     }
 
-    .header-subtitle {
-      color: var(--text-secondary);
+    .header-link {
       font-size: 0.85rem;
       font-weight: 500;
-      display: none;
+      color: var(--text-body);
+      transition: color var(--transition);
     }
 
-    @media (min-width: 768px) {
-      .header-subtitle { display: block; }
+    .header-link:hover {
+      color: var(--accent);
     }
 
-    .github-link {
+    .theme-toggle {
       display: flex;
       align-items: center;
-      gap: 8px;
-      padding: 8px 16px;
-      background: var(--bg-card);
-      border: 1px solid var(--border-color);
-      border-radius: var(--radius-md);
-      font-size: 0.85rem;
-      font-weight: 600;
-      color: var(--text-primary);
-      transition: all var(--transition-base);
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      border-radius: 6px;
+      color: var(--text-body);
+      transition: color var(--transition), background var(--transition);
     }
 
-    .github-link:hover {
-      background: var(--bg-card-hover);
-      border-color: var(--accent-purple);
+    .theme-toggle:hover {
+      color: var(--text-heading);
+      background: var(--bg-section);
     }
 
-    .github-link svg {
+    .theme-toggle svg {
       width: 18px;
       height: 18px;
-      fill: currentColor;
     }
 
-    /* ===== Hero ===== */
-    .hero {
-      padding: 140px 24px 80px;
-      text-align: center;
-      position: relative;
-      overflow: hidden;
-    }
+    .theme-toggle .icon-moon { display: none; }
+    html[data-theme="dark"] .theme-toggle .icon-sun { display: none; }
+    html[data-theme="dark"] .theme-toggle .icon-moon { display: block; }
 
-    .hero::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background:
-        radial-gradient(ellipse 80% 60% at 50% 20%, rgba(139, 92, 246, 0.15) 0%, transparent 70%),
-        radial-gradient(ellipse 60% 50% at 30% 60%, rgba(59, 130, 246, 0.08) 0%, transparent 70%),
-        radial-gradient(ellipse 60% 50% at 70% 60%, rgba(139, 92, 246, 0.06) 0%, transparent 70%);
-      pointer-events: none;
-    }
-
-    .hero-content {
-      position: relative;
-      max-width: 720px;
+    /* ===== Main Content ===== */
+    .main-header {
+      max-width: 1200px;
       margin: 0 auto;
+      padding: 64px 24px 40px;
     }
 
-    .hero-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 6px 14px;
-      background: rgba(139, 92, 246, 0.12);
-      border: 1px solid rgba(139, 92, 246, 0.25);
-      border-radius: 100px;
-      font-size: 0.8rem;
+    .eyebrow {
+      font-size: 0.7rem;
       font-weight: 600;
-      color: var(--accent-purple);
-      margin-bottom: 24px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 12px;
+      transition: color var(--transition);
     }
 
-    .hero h1 {
-      font-size: clamp(2rem, 5vw, 3.2rem);
-      font-weight: 900;
-      letter-spacing: -0.03em;
-      line-height: 1.15;
-      margin-bottom: 16px;
-      background: linear-gradient(135deg, #f0f1f5 0%, #c4b5fd 50%, #93c5fd 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
+    .main-header h1 {
+      font-size: clamp(1.75rem, 4vw, 2.5rem);
+      font-weight: 700;
+      color: var(--text-heading);
+      letter-spacing: -0.025em;
+      line-height: 1.2;
+      margin-bottom: 12px;
+      transition: color var(--transition);
     }
 
-    .hero p {
-      font-size: 1.1rem;
-      color: var(--text-secondary);
-      max-width: 540px;
-      margin: 0 auto 36px;
-      line-height: 1.7;
+    .main-header .description {
+      font-size: 1rem;
+      color: var(--text-body);
+      max-width: 560px;
+      line-height: 1.6;
+      margin-bottom: 20px;
     }
 
-    /* ===== Search Bar ===== */
-    .search-container {
-      max-width: 520px;
-      margin: 0 auto;
-      position: relative;
-    }
-
-    .search-icon {
-      position: absolute;
-      left: 18px;
-      top: 50%;
-      transform: translateY(-50%);
+    .stats-line {
+      font-size: 0.85rem;
       color: var(--text-muted);
-      pointer-events: none;
+      transition: color var(--transition);
     }
 
-    .search-icon svg {
-      width: 20px;
-      height: 20px;
-      stroke: currentColor;
-      fill: none;
+    .stats-line span {
+      color: var(--text-heading);
+      font-weight: 600;
+      transition: color var(--transition);
+    }
+
+    /* ===== Filters ===== */
+    .filters-section {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px 32px;
+    }
+
+    .filters-row {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 24px;
+      overflow-x: auto;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+      transition: border-color var(--transition);
+    }
+
+    .filters-row::-webkit-scrollbar { display: none; }
+
+    .filter-tab {
+      flex-shrink: 0;
+      padding: 12px 0;
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      background: none;
+      border: none;
+      border-bottom: 2px solid transparent;
+      cursor: pointer;
+      transition: color var(--transition), border-color var(--transition);
+      white-space: nowrap;
+      margin-bottom: -1px;
+    }
+
+    .filter-tab:hover {
+      color: var(--text-heading);
+    }
+
+    .filter-tab.active {
+      color: var(--text-heading);
+      border-bottom-color: var(--accent);
+    }
+
+    .search-wrapper {
+      position: relative;
+      max-width: 400px;
     }
 
     .search-input {
       width: 100%;
-      padding: 16px 18px 16px 50px;
-      background: var(--bg-card);
-      border: 1px solid var(--border-color);
-      border-radius: var(--radius-lg);
-      color: var(--text-primary);
+      padding: 10px 14px 10px 14px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      color: var(--text-heading);
       font-family: var(--font);
-      font-size: 1rem;
+      font-size: 0.85rem;
       outline: none;
-      transition: all var(--transition-base);
+      transition: border-color var(--transition), background var(--transition), color var(--transition);
     }
 
     .search-input::placeholder {
@@ -240,196 +240,41 @@
     }
 
     .search-input:focus {
-      border-color: var(--accent-purple);
-      box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.15);
+      border-color: var(--accent);
     }
 
     .search-clear {
       position: absolute;
-      right: 14px;
+      right: 10px;
       top: 50%;
       transform: translateY(-50%);
-      background: var(--bg-card-hover);
+      background: none;
       border: none;
       color: var(--text-muted);
-      width: 28px;
-      height: 28px;
-      border-radius: 50%;
+      font-size: 16px;
       display: none;
       align-items: center;
       justify-content: center;
-      font-size: 16px;
-      transition: all var(--transition-base);
+      width: 20px;
+      height: 20px;
+      cursor: pointer;
+      transition: color var(--transition);
     }
 
     .search-clear.visible { display: flex; }
-    .search-clear:hover { color: var(--text-primary); background: var(--border-color); }
-
-    /* ===== Stats ===== */
-    .stats {
-      display: flex;
-      justify-content: center;
-      gap: 40px;
-      padding: 24px;
-      margin-top: 20px;
-    }
-
-    .stat {
-      text-align: center;
-    }
-
-    .stat-value {
-      font-size: 1.5rem;
-      font-weight: 800;
-      background: var(--accent-gradient);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-
-    .stat-label {
-      font-size: 0.8rem;
-      color: var(--text-muted);
-      font-weight: 500;
-      margin-top: 2px;
-    }
-
-    /* ===== Filters ===== */
-    .filters-section {
-      max-width: 1280px;
-      margin: 0 auto;
-      padding: 0 24px 32px;
-      position: sticky;
-      top: 64px;
-      z-index: 50;
-      background: var(--bg-primary);
-    }
-
-    .filters-section::after {
-      content: '';
-      position: absolute;
-      bottom: -20px;
-      left: 0;
-      right: 0;
-      height: 20px;
-      background: linear-gradient(to bottom, var(--bg-primary), transparent);
-      pointer-events: none;
-    }
-
-    .filter-bar {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      overflow-x: auto;
-      scrollbar-width: none;
-      -ms-overflow-style: none;
-      padding: 4px 0;
-    }
-
-    .filter-bar::-webkit-scrollbar { display: none; }
-
-    .filter-chip {
-      flex-shrink: 0;
-      padding: 10px 20px;
-      background: var(--bg-card);
-      border: 1px solid var(--border-color);
-      border-radius: 100px;
-      font-size: 0.875rem;
-      font-weight: 600;
-      color: var(--text-secondary);
-      cursor: pointer;
-      transition: all var(--transition-base);
-      white-space: nowrap;
-    }
-
-    .filter-chip:hover {
-      background: var(--bg-card-hover);
-      color: var(--text-primary);
-      border-color: rgba(139, 92, 246, 0.3);
-    }
-
-    .filter-chip.active {
-      background: var(--accent-gradient);
-      color: white;
-      border-color: transparent;
-    }
-
-    .filter-count {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      min-width: 22px;
-      height: 22px;
-      padding: 0 6px;
-      background: rgba(255,255,255,0.15);
-      border-radius: 100px;
-      font-size: 0.75rem;
-      margin-left: 6px;
-    }
-
-    .filter-chip:not(.active) .filter-count {
-      background: rgba(255,255,255,0.06);
-    }
-
-    .device-filters {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      margin-left: auto;
-      flex-shrink: 0;
-    }
-
-    .device-btn {
-      padding: 8px 14px;
-      background: transparent;
-      border: 1px solid var(--border-color);
-      border-radius: var(--radius-sm);
-      font-size: 0.8rem;
-      font-weight: 500;
-      color: var(--text-muted);
-      cursor: pointer;
-      transition: all var(--transition-base);
-    }
-
-    .device-btn:hover {
-      color: var(--text-secondary);
-      border-color: rgba(139, 92, 246, 0.3);
-    }
-
-    .device-btn.active {
-      color: var(--accent-purple);
-      border-color: var(--accent-purple);
-      background: rgba(139, 92, 246, 0.08);
-    }
+    .search-clear:hover { color: var(--text-heading); }
 
     /* ===== Gallery Grid ===== */
     .gallery-section {
-      max-width: 1280px;
+      max-width: 1200px;
       margin: 0 auto;
       padding: 0 24px 80px;
-    }
-
-    .results-info {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 24px;
-      font-size: 0.9rem;
-      color: var(--text-muted);
-    }
-
-    .results-count {
-      font-weight: 600;
-    }
-
-    .results-count span {
-      color: var(--text-primary);
     }
 
     .gallery-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 24px;
+      gap: 20px;
     }
 
     @media (max-width: 1024px) {
@@ -443,54 +288,23 @@
     /* ===== Card ===== */
     .card {
       background: var(--bg-card);
-      border: 1px solid var(--border-color);
-      border-radius: var(--radius-xl);
+      border: 1px solid var(--border);
+      border-radius: 6px;
       overflow: hidden;
-      transition: all var(--transition-base);
       cursor: pointer;
-      position: relative;
+      transition: border-color var(--transition), background var(--transition);
     }
 
     .card:hover {
-      transform: translateY(-4px);
-      box-shadow: var(--shadow-card-hover);
-      border-color: rgba(139, 92, 246, 0.25);
-    }
-
-    /* Featured card glow */
-    .card.featured {
-      border-color: rgba(251, 191, 36, 0.25);
-    }
-
-    .card.featured:hover {
-      border-color: rgba(251, 191, 36, 0.45);
-      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5), 0 0 20px rgba(251, 191, 36, 0.1);
-    }
-
-    /* Featured badge */
-    .featured-badge {
-      position: absolute;
-      top: 12px;
-      right: 12px;
-      z-index: 10;
-      background: rgba(251, 191, 36, 0.2);
-      color: #FBBF24;
-      padding: 4px 10px;
-      border-radius: 100px;
-      font-size: 0.7rem;
-      font-weight: 700;
-      letter-spacing: 0.03em;
-      display: flex;
-      align-items: center;
-      gap: 4px;
-      backdrop-filter: blur(8px);
+      border-color: var(--accent);
     }
 
     .card-image-wrapper {
       position: relative;
       overflow: hidden;
       height: 280px;
-      background: var(--bg-surface);
+      background: var(--bg-section);
+      transition: background var(--transition);
     }
 
     .card-image {
@@ -502,20 +316,6 @@
       transition: top 3s ease-in-out;
     }
 
-    .card-image-overlay {
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(to top, rgba(12, 14, 23, 0.6) 0%, transparent 50%);
-      opacity: 0;
-      transition: opacity var(--transition-base);
-      z-index: 2;
-    }
-
-    .card:hover .card-image-overlay {
-      opacity: 1;
-    }
-
-    /* Scroll hint */
     .scroll-hint {
       position: absolute;
       bottom: 10px;
@@ -524,13 +324,12 @@
       display: flex;
       align-items: center;
       gap: 5px;
-      background: rgba(0,0,0,0.6);
-      backdrop-filter: blur(8px);
-      padding: 5px 12px;
+      background: rgba(0, 0, 0, 0.5);
+      padding: 4px 10px;
       border-radius: 100px;
-      font-size: 0.7rem;
+      font-size: 0.65rem;
       font-weight: 500;
-      color: rgba(255,255,255,0.8);
+      color: rgba(255, 255, 255, 0.85);
       z-index: 3;
       opacity: 1;
       transition: opacity 0.3s ease;
@@ -538,8 +337,8 @@
     }
 
     .scroll-hint svg {
-      width: 12px;
-      height: 12px;
+      width: 10px;
+      height: 10px;
       stroke: currentColor;
       fill: none;
       stroke-width: 2;
@@ -555,318 +354,101 @@
       opacity: 0;
     }
 
-    .card-expand-hint {
-      position: absolute;
-      bottom: 12px;
-      left: 50%;
-      transform: translateX(-50%) translateY(8px);
-      background: rgba(0,0,0,0.7);
-      backdrop-filter: blur(8px);
-      padding: 6px 14px;
-      border-radius: 100px;
-      font-size: 0.75rem;
-      font-weight: 500;
-      color: white;
-      opacity: 0;
-      transition: all var(--transition-base);
-      white-space: nowrap;
-      z-index: 4;
-    }
-
-    .card:hover .card-expand-hint {
-      opacity: 1;
-      transform: translateX(-50%) translateY(0);
-    }
-
     .card-body {
-      padding: 20px;
-    }
-
-    .card-tags {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      margin-bottom: 12px;
-    }
-
-    .category-tag {
-      padding: 4px 10px;
-      border-radius: 100px;
-      font-size: 0.7rem;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-    }
-
-    .category-tag.marketing { background: rgba(236, 72, 153, 0.12); color: #f472b6; }
-    .category-tag.product { background: rgba(139, 92, 246, 0.12); color: #a78bfa; }
-    .category-tag.commerce { background: rgba(34, 197, 94, 0.12); color: #4ade80; }
-    .category-tag.utility { background: rgba(251, 191, 36, 0.12); color: #fbbf24; }
-    .category-tag.admin { background: rgba(59, 130, 246, 0.12); color: #60a5fa; }
-
-    .device-tag {
-      padding: 4px 10px;
-      border-radius: 100px;
-      font-size: 0.7rem;
-      font-weight: 600;
-      background: rgba(255,255,255,0.06);
-      color: var(--text-muted);
-      display: flex;
-      align-items: center;
-      gap: 4px;
-    }
-
-    .device-tag svg {
-      width: 12px;
-      height: 12px;
-      stroke: currentColor;
-      fill: none;
-      stroke-width: 2;
+      padding: 16px;
     }
 
     .card-title {
-      font-size: 1.05rem;
-      font-weight: 700;
-      letter-spacing: -0.01em;
-      margin-bottom: 8px;
-      line-height: 1.3;
-    }
-
-    .card-description {
-      font-size: 0.82rem;
-      color: var(--text-muted);
-      line-height: 1.5;
-      display: -webkit-box;
-      -webkit-line-clamp: 2;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
-    }
-
-    .card-actions {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      padding: 14px 20px;
-      border-top: 1px solid var(--border-color);
-    }
-
-    .btn-copy {
-      flex: 1;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      padding: 10px 16px;
-      background: var(--accent-gradient);
-      border: none;
-      border-radius: var(--radius-md);
-      color: white;
-      font-size: 0.82rem;
-      font-weight: 600;
-      transition: all var(--transition-base);
-    }
-
-    .btn-copy:hover {
-      background: var(--accent-gradient-hover);
-      transform: translateY(-1px);
-      box-shadow: 0 4px 16px rgba(139, 92, 246, 0.3);
-    }
-
-    .btn-copy:active { transform: translateY(0); }
-
-    .btn-copy svg {
-      width: 15px;
-      height: 15px;
-      stroke: currentColor;
-      fill: none;
-      stroke-width: 2;
-    }
-
-    .btn-copy.copied {
-      background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
-    }
-
-    .btn-stitch {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 10px 14px;
-      background: rgba(255,255,255,0.06);
-      border: 1px solid var(--border-color);
-      border-radius: var(--radius-md);
-      color: var(--text-secondary);
-      font-size: 0.82rem;
-      font-weight: 600;
-      transition: all var(--transition-base);
-    }
-
-    .btn-stitch:hover {
-      background: rgba(255,255,255,0.1);
-      border-color: rgba(139, 92, 246, 0.3);
-      color: var(--text-primary);
-    }
-
-    .btn-stitch svg {
-      width: 15px;
-      height: 15px;
-      stroke: currentColor;
-      fill: none;
-      stroke-width: 2;
-    }
-
-    /* ===== Modal ===== */
-    .modal-backdrop {
-      position: fixed;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.75);
-      backdrop-filter: blur(8px);
-      z-index: 200;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 24px;
-      opacity: 0;
-      visibility: hidden;
-      transition: all 0.3s ease;
-    }
-
-    .modal-backdrop.open {
-      opacity: 1;
-      visibility: visible;
-    }
-
-    .modal {
-      background: var(--bg-card);
-      border: 1px solid var(--border-color);
-      border-radius: var(--radius-xl);
-      max-width: 720px;
-      width: 100%;
-      max-height: 90vh;
-      overflow-y: auto;
-      transform: scale(0.95) translateY(20px);
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-
-    .modal-backdrop.open .modal {
-      transform: scale(1) translateY(0);
-    }
-
-    .modal::-webkit-scrollbar { width: 6px; }
-    .modal::-webkit-scrollbar-track { background: transparent; }
-    .modal::-webkit-scrollbar-thumb { background: var(--border-color); border-radius: 3px; }
-
-    .modal-image-wrapper {
-      position: relative;
-      aspect-ratio: 16/10;
-      background: var(--bg-surface);
-      overflow: hidden;
-    }
-
-    .modal-image {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    .modal-close {
-      position: absolute;
-      top: 16px;
-      right: 16px;
-      width: 36px;
-      height: 36px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: rgba(0,0,0,0.6);
-      backdrop-filter: blur(8px);
-      border: none;
-      border-radius: 50%;
-      color: white;
-      font-size: 18px;
-      cursor: pointer;
-      transition: all var(--transition-base);
-      z-index: 10;
-    }
-
-    .modal-close:hover { background: rgba(0,0,0,0.8); transform: scale(1.1); }
-
-    .modal-body {
-      padding: 28px;
-    }
-
-    .modal-tags {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      margin-bottom: 16px;
-    }
-
-    .modal-title {
-      font-size: 1.5rem;
-      font-weight: 800;
-      letter-spacing: -0.02em;
-      margin-bottom: 20px;
-    }
-
-    .modal-prompt-label {
-      font-size: 0.8rem;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: var(--text-muted);
-      margin-bottom: 10px;
-    }
-
-    .modal-prompt {
-      background: var(--bg-surface);
-      border: 1px solid var(--border-color);
-      border-radius: var(--radius-md);
-      padding: 20px;
       font-size: 0.9rem;
-      line-height: 1.7;
-      color: var(--text-secondary);
-      margin-bottom: 24px;
-      white-space: pre-wrap;
+      font-weight: 600;
+      color: var(--text-heading);
+      letter-spacing: -0.01em;
+      margin-bottom: 4px;
+      line-height: 1.3;
+      transition: color var(--transition);
     }
 
-    .modal-actions {
-      display: flex;
-      gap: 10px;
+    .card-meta {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-bottom: 2px;
+      text-transform: capitalize;
+      transition: color var(--transition);
     }
 
-    .modal-actions .btn-copy {
-      flex: none;
-      padding: 12px 24px;
-    }
-
-    .modal-actions .btn-stitch {
-      padding: 12px 24px;
-      gap: 8px;
-      display: flex;
-    }
-
-    .btn-vote {
+    .card-footer {
       display: flex;
       align-items: center;
-      justify-content: center;
-      gap: 6px;
-      padding: 12px 24px;
-      background: rgba(251, 191, 36, 0.1);
-      border: 1px solid rgba(251, 191, 36, 0.25);
-      border-radius: var(--radius-md);
-      color: #FBBF24;
-      font-size: 0.82rem;
-      font-weight: 600;
-      transition: all var(--transition-base);
-      text-decoration: none;
-      cursor: pointer;
+      justify-content: space-between;
+      padding: 10px 16px;
+      border-top: 1px solid var(--border);
+      transition: border-color var(--transition);
     }
 
-    .btn-vote:hover {
-      background: rgba(251, 191, 36, 0.2);
-      border-color: rgba(251, 191, 36, 0.4);
-      transform: translateY(-1px);
-      box-shadow: 0 4px 16px rgba(251, 191, 36, 0.15);
+    .card-contributor {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      transition: color var(--transition);
+    }
+
+    .card-contributor a {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--text-muted);
+      transition: color var(--transition);
+    }
+
+    .card-contributor a:hover {
+      color: var(--text-heading);
+    }
+
+    .contributor-avatar {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .card-actions-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .card-copy,
+    .card-vote {
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: var(--accent);
+      background: none;
+      border: none;
+      cursor: pointer;
+      transition: color var(--transition);
+      text-decoration: none;
+    }
+
+    .card-copy:hover,
+    .card-vote:hover {
+      color: var(--accent-hover);
+    }
+
+    /* ===== Featured badge ===== */
+    .featured-badge {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      z-index: 10;
+      background: rgba(0, 0, 0, 0.6);
+      color: #FBBF24;
+      padding: 3px 8px;
+      border-radius: 4px;
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.02em;
     }
 
     /* ===== Empty State ===== */
@@ -878,159 +460,257 @@
 
     .empty-state.visible { display: block; }
 
-    .empty-state-icon {
-      font-size: 3rem;
-      margin-bottom: 16px;
-      opacity: 0.5;
-    }
-
     .empty-state h3 {
-      font-size: 1.25rem;
-      font-weight: 700;
-      margin-bottom: 8px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--text-heading);
+      margin-bottom: 6px;
+      transition: color var(--transition);
     }
 
     .empty-state p {
       color: var(--text-muted);
-      font-size: 0.95rem;
+      font-size: 0.9rem;
+      margin-bottom: 20px;
     }
 
     .empty-state button {
-      margin-top: 20px;
-      padding: 10px 24px;
+      padding: 8px 20px;
       background: var(--bg-card);
-      border: 1px solid var(--border-color);
-      border-radius: var(--radius-md);
-      color: var(--text-primary);
-      font-size: 0.9rem;
-      font-weight: 600;
-      transition: all var(--transition-base);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      color: var(--text-heading);
+      font-size: 0.85rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: border-color var(--transition), color var(--transition), background var(--transition);
     }
 
     .empty-state button:hover {
-      border-color: var(--accent-purple);
+      border-color: var(--accent);
     }
 
-    /* ===== Footer ===== */
-    .footer {
-      border-top: 1px solid var(--border-color);
-      padding: 48px 24px;
-      margin-top: 40px;
-    }
-
-    .footer-inner {
-      max-width: 1280px;
-      margin: 0 auto;
+    /* ===== Modal ===== */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 200;
       display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
       align-items: center;
-      gap: 24px;
+      justify-content: center;
+      padding: 24px;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.2s ease, visibility 0.2s ease;
     }
 
-    .footer-left {
+    .modal-backdrop.open {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .modal {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      max-width: 680px;
+      width: 100%;
+      max-height: 90vh;
+      overflow-y: auto;
+      transform: translateY(10px);
+      transition: transform 0.2s ease, background var(--transition), border-color var(--transition);
+    }
+
+    .modal-backdrop.open .modal {
+      transform: translateY(0);
+    }
+
+    .modal::-webkit-scrollbar { width: 4px; }
+    .modal::-webkit-scrollbar-track { background: transparent; }
+    .modal::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .modal-image-wrapper {
+      position: relative;
+      max-height: 400px;
+      overflow: hidden;
+      background: var(--bg-section);
+      transition: background var(--transition);
+    }
+
+    .modal-image {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      width: 32px;
+      height: 32px;
       display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-
-    .footer-logo {
-      font-weight: 800;
-      font-size: 1rem;
-      letter-spacing: -0.02em;
-    }
-
-    .footer-desc {
-      font-size: 0.85rem;
-      color: var(--text-muted);
-    }
-
-    .footer-links {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 24px;
       align-items: center;
+      justify-content: center;
+      background: rgba(0, 0, 0, 0.5);
+      border: none;
+      border-radius: 6px;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background 0.2s ease;
+      z-index: 10;
     }
 
-    .footer-link {
-      font-size: 0.85rem;
-      color: var(--text-secondary);
-      font-weight: 500;
-      transition: color var(--transition-base);
+    .modal-close:hover { background: rgba(0, 0, 0, 0.7); }
+
+    .modal-body {
+      padding: 24px;
     }
 
-    .footer-link:hover { color: var(--accent-purple); }
-
-    .footer-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 8px 16px;
-      background: rgba(255,255,255,0.04);
-      border: 1px solid var(--border-color);
-      border-radius: var(--radius-md);
-      font-size: 0.8rem;
-      font-weight: 600;
-      color: var(--text-secondary);
-    }
-
-    .footer-badge img {
-      width: 18px;
-      height: 18px;
-    }
-
-    .footer-bottom {
-      max-width: 1280px;
-      margin: 24px auto 0;
-      padding-top: 24px;
-      border-top: 1px solid var(--border-color);
+    .modal-meta {
       display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
       align-items: center;
       gap: 12px;
+      margin-bottom: 8px;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      text-transform: capitalize;
+      transition: color var(--transition);
+    }
+
+    .modal-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--text-heading);
+      letter-spacing: -0.02em;
+      margin-bottom: 16px;
+      transition: color var(--transition);
+    }
+
+    .modal-contributor {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 20px;
       font-size: 0.8rem;
       color: var(--text-muted);
+      transition: color var(--transition);
     }
 
-    /* ===== Animations ===== */
-    @keyframes fadeInUp {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
+    .modal-contributor a {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-heading);
+      font-weight: 500;
+      transition: color var(--transition);
     }
 
-    .card {
-      animation: fadeInUp 0.5s ease forwards;
-      opacity: 0;
+    .modal-contributor a:hover {
+      color: var(--accent);
     }
 
-    .card:nth-child(1) { animation-delay: 0.02s; }
-    .card:nth-child(2) { animation-delay: 0.06s; }
-    .card:nth-child(3) { animation-delay: 0.10s; }
-    .card:nth-child(4) { animation-delay: 0.14s; }
-    .card:nth-child(5) { animation-delay: 0.18s; }
-    .card:nth-child(6) { animation-delay: 0.22s; }
-    .card:nth-child(7) { animation-delay: 0.26s; }
-    .card:nth-child(8) { animation-delay: 0.30s; }
-    .card:nth-child(9) { animation-delay: 0.34s; }
+    .modal-contributor .contributor-avatar {
+      width: 28px;
+      height: 28px;
+    }
+
+    .modal-prompt-label {
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+      transition: color var(--transition);
+    }
+
+    .modal-prompt {
+      background: var(--bg-section);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 16px;
+      font-size: 0.85rem;
+      line-height: 1.7;
+      color: var(--text-body);
+      margin-bottom: 20px;
+      white-space: pre-wrap;
+      font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', monospace, var(--font);
+      transition: background var(--transition), border-color var(--transition), color var(--transition);
+    }
+
+    .modal-actions {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .modal-btn {
+      padding: 10px 20px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all var(--transition);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .modal-btn-primary {
+      background: var(--accent);
+      color: #FFFFFF;
+      border: 1px solid var(--accent);
+    }
+
+    .modal-btn-primary:hover {
+      background: var(--accent-hover);
+      border-color: var(--accent-hover);
+    }
+
+    .modal-btn-primary.copied {
+      background: #16a34a;
+      border-color: #16a34a;
+    }
+
+    .modal-btn-secondary {
+      background: none;
+      color: var(--accent);
+      border: 1px solid var(--border);
+    }
+
+    .modal-btn-secondary:hover {
+      border-color: var(--accent);
+    }
+
+    .modal-btn svg {
+      width: 14px;
+      height: 14px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 2;
+    }
 
     /* ===== Toast ===== */
     .toast {
       position: fixed;
       bottom: 32px;
       left: 50%;
-      transform: translateX(-50%) translateY(20px);
-      background: #22c55e;
-      color: white;
-      padding: 12px 24px;
-      border-radius: 100px;
-      font-size: 0.85rem;
-      font-weight: 600;
+      transform: translateX(-50%) translateY(10px);
+      background: var(--text-heading);
+      color: var(--bg);
+      padding: 10px 20px;
+      border-radius: 6px;
+      font-size: 0.8rem;
+      font-weight: 500;
       z-index: 300;
       opacity: 0;
-      transition: all 0.3s ease;
+      transition: all 0.2s ease;
       pointer-events: none;
-      box-shadow: 0 8px 32px rgba(34, 197, 94, 0.3);
     }
 
     .toast.show {
@@ -1038,254 +718,144 @@
       transform: translateX(-50%) translateY(0);
     }
 
-    /* ===== Scrollbar ===== */
-    ::-webkit-scrollbar { width: 8px; }
-    ::-webkit-scrollbar-track { background: var(--bg-primary); }
-    ::-webkit-scrollbar-thumb { background: var(--border-color); border-radius: 4px; }
-    ::-webkit-scrollbar-thumb:hover { background: var(--text-muted); }
-
-    /* ===== Card Contributor ===== */
-    .card-contributor {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      padding: 10px 20px;
-      border-top: 1px solid var(--border-color);
-      font-size: 0.75rem;
-      color: var(--text-muted);
-    }
-
-    .card-contributor a {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      color: var(--text-secondary);
-      font-weight: 500;
-      transition: color var(--transition-base);
-    }
-
-    .card-contributor a:hover {
-      color: var(--accent-purple);
-    }
-
-    .card-vote {
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      margin-left: auto;
-      font-size: 0.75rem;
-      font-weight: 600;
-      color: #FBBF24;
-      cursor: pointer;
-      border-radius: 100px;
-      padding: 2px 8px;
-      background: rgba(251, 191, 36, 0.1);
-      border: 1px solid rgba(251, 191, 36, 0.2);
-      transition: all 0.2s;
-      text-decoration: none;
-    }
-
-    .card-vote:hover {
-      background: rgba(251, 191, 36, 0.2);
-      transform: scale(1.05);
-    }
-
-    .card-vote .vote-icon {
-      font-size: 0.8rem;
-      line-height: 1;
-    }
-
-    /* ===== Featured Filter Chip ===== */
-    .filter-chip.featured-filter {
-      background: rgba(251, 191, 36, 0.08);
-      border-color: rgba(251, 191, 36, 0.25);
-      color: #FBBF24;
-    }
-
-    .filter-chip.featured-filter:hover {
-      background: rgba(251, 191, 36, 0.15);
-      border-color: rgba(251, 191, 36, 0.4);
-      color: #FBBF24;
-    }
-
-    .filter-chip.featured-filter.active {
-      background: linear-gradient(135deg, #FBBF24 0%, #F59E0B 100%);
-      color: #1c1f2b;
-      border-color: transparent;
-    }
-
-    .contributor-avatar {
-      width: 24px;
-      height: 24px;
-      border-radius: 50%;
-      border: 1.5px solid var(--border-color);
-      flex-shrink: 0;
-    }
-
-    .card.marketing .contributor-avatar,
-    .card[data-category="marketing"] .contributor-avatar { border-color: rgba(236, 72, 153, 0.4); }
-    .card[data-category="product"] .contributor-avatar { border-color: rgba(139, 92, 246, 0.4); }
-    .card[data-category="commerce"] .contributor-avatar { border-color: rgba(34, 197, 94, 0.4); }
-    .card[data-category="utility"] .contributor-avatar { border-color: rgba(251, 191, 36, 0.4); }
-    .card[data-category="admin"] .contributor-avatar { border-color: rgba(59, 130, 246, 0.4); }
-
-    /* ===== Modal Contributor ===== */
-    .modal-contributor {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 20px;
-      font-size: 0.85rem;
-      color: var(--text-secondary);
-    }
-
-    .modal-contributor a {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      color: var(--text-primary);
-      font-weight: 600;
-      transition: color var(--transition-base);
-    }
-
-    .modal-contributor a:hover {
-      color: var(--accent-purple);
-    }
-
-    .modal-contributor .contributor-avatar {
-      width: 32px;
-      height: 32px;
-    }
-
-    .modal-contributor-label {
-      color: var(--text-muted);
-      font-weight: 400;
-    }
-
     /* ===== Contributors Section ===== */
     .contributors-section {
-      max-width: 1280px;
+      max-width: 1200px;
       margin: 0 auto;
-      padding: 80px 24px 60px;
+      padding: 60px 24px 40px;
     }
 
-    .contributors-header {
-      text-align: center;
-      margin-bottom: 48px;
-    }
-
-    .contributors-header h2 {
-      font-size: clamp(1.5rem, 3vw, 2rem);
-      font-weight: 800;
+    .contributors-section h2 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--text-heading);
       letter-spacing: -0.02em;
-      margin-bottom: 8px;
-      background: linear-gradient(135deg, #f0f1f5 0%, #c4b5fd 50%, #93c5fd 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-
-    .contributors-header p {
-      color: var(--text-muted);
-      font-size: 1rem;
+      margin-bottom: 24px;
+      transition: color var(--transition);
     }
 
     .contributors-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 24px;
-      margin-bottom: 40px;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 16px;
+      margin-bottom: 24px;
     }
 
     .contributor-card {
       background: var(--bg-card);
-      border: 1px solid var(--border-color);
-      border-radius: var(--radius-xl);
-      padding: 28px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 20px;
       display: flex;
-      flex-direction: column;
       align-items: center;
-      text-align: center;
-      transition: all var(--transition-base);
+      gap: 14px;
+      transition: border-color var(--transition), background var(--transition);
     }
 
     .contributor-card:hover {
-      border-color: rgba(139, 92, 246, 0.25);
-      box-shadow: var(--shadow-card);
-      transform: translateY(-2px);
+      border-color: var(--accent);
     }
 
     .contributor-card-avatar {
-      width: 64px;
-      height: 64px;
+      width: 48px;
+      height: 48px;
       border-radius: 50%;
-      border: 2px solid var(--accent-purple);
-      margin-bottom: 16px;
+      flex-shrink: 0;
+    }
+
+    .contributor-card-info {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
     }
 
     .contributor-card-name {
-      font-size: 1.1rem;
-      font-weight: 700;
-      margin-bottom: 4px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--text-heading);
+      transition: color var(--transition);
     }
 
     .contributor-card-name a {
-      color: var(--text-primary);
-      transition: color var(--transition-base);
+      color: inherit;
+      transition: color var(--transition);
     }
 
     .contributor-card-name a:hover {
-      color: var(--accent-purple);
+      color: var(--accent);
     }
 
     .contributor-card-meta {
-      font-size: 0.8rem;
+      font-size: 0.75rem;
       color: var(--text-muted);
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-      margin-top: 4px;
-    }
-
-    .contributor-card-stat {
-      color: var(--text-secondary);
-      font-weight: 600;
+      transition: color var(--transition);
     }
 
     .contributor-cta {
-      text-align: center;
+      margin-top: 8px;
     }
 
-    .contributor-cta-btn {
-      display: inline-flex;
+    .contributor-cta a {
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--accent);
+      transition: color var(--transition);
+    }
+
+    .contributor-cta a:hover {
+      color: var(--accent-hover);
+    }
+
+    /* ===== Footer ===== */
+    .footer {
+      border-top: 1px solid var(--border);
+      padding: 24px;
+      transition: border-color var(--transition);
+    }
+
+    .footer-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
       align-items: center;
-      gap: 8px;
-      padding: 14px 28px;
-      background: var(--bg-card);
-      border: 1px solid var(--border-color);
-      border-radius: var(--radius-lg);
-      color: var(--text-primary);
-      font-size: 0.95rem;
-      font-weight: 600;
-      transition: all var(--transition-base);
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      transition: color var(--transition);
     }
 
-    .contributor-cta-btn:hover {
-      border-color: var(--accent-purple);
-      background: var(--bg-card-hover);
-      box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1);
+    .footer-links {
+      display: flex;
+      align-items: center;
+      gap: 20px;
     }
 
-    .contributor-cta-btn svg {
-      width: 18px;
-      height: 18px;
-      stroke: currentColor;
-      fill: none;
-      stroke-width: 2;
+    .footer-link {
+      color: var(--text-muted);
+      font-weight: 500;
+      transition: color var(--transition);
+    }
+
+    .footer-link:hover {
+      color: var(--accent);
+    }
+
+    .footer-built {
+      color: var(--text-muted);
+      transition: color var(--transition);
     }
 
     /* ===== Utility ===== */
     .hidden { display: none !important; }
+
+    /* ===== Mobile adjustments ===== */
+    @media (max-width: 640px) {
+      .main-header { padding: 40px 24px 32px; }
+      .header-right { gap: 16px; }
+      .filters-row { gap: 20px; }
+    }
   </style>
 </head>
 <body>
@@ -1293,87 +863,47 @@
   <!-- Header -->
   <header class="header">
     <div class="header-inner">
-      <a href="#" class="logo">
-        <div class="logo-icon">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
-          </svg>
-        </div>
-        Awesome Stitch Design
-      </a>
+      <a href="#" class="logo">Awesome Stitch Design</a>
       <div class="header-right">
-        <span class="header-subtitle">Curated AI Design Prompts for Google Stitch</span>
-        <a href="https://github.com/tygwan/awesome-stitch-design" target="_blank" rel="noopener" class="github-link">
-          <svg viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
-          <span>GitHub</span>
-        </a>
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+          <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+          <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        </button>
+        <a href="https://github.com/tygwan/awesome-stitch-design" target="_blank" rel="noopener" class="header-link">GitHub</a>
+        <a href="https://github.com/tygwan/awesome-stitch-design/blob/main/CONTRIBUTING.md" target="_blank" rel="noopener" class="header-link">Contribute</a>
       </div>
     </div>
   </header>
 
-  <!-- Hero -->
-  <section class="hero">
-    <div class="hero-content">
-      <div class="hero-badge" id="heroBadge">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-        <span id="heroBadgeCount"></span> Curated Prompts
-      </div>
-      <h1>Discover the Best UI Design Prompts</h1>
-      <p>Browse curated prompts for Google Stitch across landing pages, dashboards, e-commerce, admin panels, and more. Copy any prompt and paste it into Stitch to generate stunning designs.</p>
-      <div class="search-container">
-        <div class="search-icon">
-          <svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-        </div>
-        <input type="text" class="search-input" id="searchInput" placeholder="Search prompts... e.g. dashboard, login, e-commerce">
-        <button class="search-clear" id="searchClear" aria-label="Clear search">&times;</button>
-      </div>
-      <div class="stats">
-        <div class="stat">
-          <div class="stat-value" id="statPrompts">0</div>
-          <div class="stat-label">Prompts</div>
-        </div>
-        <div class="stat">
-          <div class="stat-value" id="statCategories">0</div>
-          <div class="stat-label">Categories</div>
-        </div>
-        <div class="stat">
-          <div class="stat-value" id="statPageTypes">0</div>
-          <div class="stat-label">Page Types</div>
-        </div>
-      </div>
-    </div>
+  <!-- Main Content -->
+  <section class="main-header">
+    <div class="eyebrow">The Archive</div>
+    <h1>Design Prompts for Google Stitch</h1>
+    <p class="description">Browse curated prompts for landing pages, dashboards, e-commerce, admin panels, and more. Copy any prompt and paste it into Stitch to generate stunning designs.</p>
+    <div class="stats-line" id="statsLine"></div>
   </section>
 
   <!-- Filters -->
   <section class="filters-section">
-    <div class="filter-bar" id="filterBar">
-      <button class="filter-chip active" data-category="all">All<span class="filter-count">44</span></button>
-      <button class="filter-chip featured-filter" data-category="featured">&#9733; Featured<span class="filter-count">6</span></button>
-      <button class="filter-chip" data-category="marketing">Marketing<span class="filter-count">10</span></button>
-      <button class="filter-chip" data-category="product">Product<span class="filter-count">10</span></button>
-      <button class="filter-chip" data-category="commerce">Commerce<span class="filter-count">8</span></button>
-      <button class="filter-chip" data-category="utility">Utility<span class="filter-count">8</span></button>
-      <button class="filter-chip" data-category="admin">Admin<span class="filter-count">8</span></button>
-      <div class="device-filters">
-        <button class="device-btn active" data-device="all">All</button>
-        <button class="device-btn" data-device="Desktop">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline;vertical-align:-2px;margin-right:3px"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>Desktop
-        </button>
-        <button class="device-btn" data-device="Mobile">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline;vertical-align:-2px;margin-right:3px"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>Mobile
-        </button>
-      </div>
+    <nav class="filters-row" id="filterBar">
+      <button class="filter-tab active" data-category="all">All</button>
+      <button class="filter-tab" data-category="marketing">Marketing</button>
+      <button class="filter-tab" data-category="product">Product</button>
+      <button class="filter-tab" data-category="commerce">Commerce</button>
+      <button class="filter-tab" data-category="utility">Utility</button>
+      <button class="filter-tab" data-category="admin">Admin</button>
+      <button class="filter-tab" data-category="featured">Featured</button>
+    </nav>
+    <div class="search-wrapper">
+      <input type="text" class="search-input" id="searchInput" placeholder="Search prompts...">
+      <button class="search-clear" id="searchClear" aria-label="Clear search">&times;</button>
     </div>
   </section>
 
   <!-- Gallery -->
   <section class="gallery-section">
-    <div class="results-info">
-      <div class="results-count">Showing <span id="visibleCount">44</span> of <span>44</span> prompts</div>
-    </div>
     <div class="gallery-grid" id="galleryGrid"></div>
     <div class="empty-state" id="emptyState">
-      <div class="empty-state-icon">&#128269;</div>
       <h3>No prompts found</h3>
       <p>Try a different search term or clear your filters.</p>
       <button onclick="resetFilters()">Reset Filters</button>
@@ -1388,20 +918,20 @@
         <button class="modal-close" id="modalClose">&times;</button>
       </div>
       <div class="modal-body">
-        <div class="modal-tags" id="modalTags"></div>
+        <div class="modal-meta" id="modalMeta"></div>
         <h2 class="modal-title" id="modalTitle"></h2>
         <div class="modal-contributor" id="modalContributor"></div>
         <div class="modal-prompt-label">Prompt</div>
         <div class="modal-prompt" id="modalPrompt"></div>
         <div class="modal-actions">
-          <button class="btn-copy" id="modalCopyBtn">
-            <svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+          <button class="modal-btn modal-btn-primary" id="modalCopyBtn">
+            <svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
             Copy Prompt
           </button>
-          <a class="btn-vote" id="modalVoteBtn" href="#" target="_blank" rel="noopener">&#128077; Vote on GitHub</a>
-          <a class="btn-stitch" href="https://stitch.withgoogle.com" target="_blank" rel="noopener">
-            <svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-            Open Stitch
+          <a class="modal-btn modal-btn-secondary" id="modalVoteBtn" href="#" target="_blank" rel="noopener">Vote on GitHub</a>
+          <a class="modal-btn modal-btn-secondary" href="https://stitch.withgoogle.com" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            Open in Stitch
           </a>
         </div>
       </div>
@@ -1413,48 +943,22 @@
 
   <!-- Contributors -->
   <section class="contributors-section">
-    <div class="contributors-header">
-      <h2>Contributors</h2>
-      <p>People who shared their best Stitch prompts</p>
-    </div>
-    <div class="contributors-grid">
-      <div class="contributor-card">
-        <img src="https://github.com/tygwan.png?size=128" alt="tygwan" class="contributor-card-avatar" loading="lazy">
-        <div class="contributor-card-name"><a href="https://github.com/tygwan" target="_blank" rel="noopener">tygwan</a></div>
-        <div class="contributor-card-meta">
-          <span class="contributor-card-stat">44 prompts contributed</span>
-          <span>Founding contributor</span>
-        </div>
-      </div>
-    </div>
+    <h2>Contributors</h2>
+    <div class="contributors-grid" id="contributorsGrid"></div>
     <div class="contributor-cta">
-      <a href="https://github.com/tygwan/awesome-stitch-design/blob/main/CONTRIBUTING.md" target="_blank" rel="noopener" class="contributor-cta-btn">
-        <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>
-        Become a Contributor
-      </a>
+      <a href="https://github.com/tygwan/awesome-stitch-design/blob/main/CONTRIBUTING.md" target="_blank" rel="noopener">Become a Contributor &rarr;</a>
     </div>
   </section>
 
   <!-- Footer -->
   <footer class="footer">
     <div class="footer-inner">
-      <div class="footer-left">
-        <div class="footer-logo">Awesome Stitch Design</div>
-        <div class="footer-desc">Curated AI design prompts for Google Stitch</div>
-      </div>
       <div class="footer-links">
         <a href="https://github.com/tygwan/awesome-stitch-design" target="_blank" rel="noopener" class="footer-link">GitHub</a>
         <a href="https://github.com/tygwan/awesome-stitch-design/blob/main/CONTRIBUTING.md" target="_blank" rel="noopener" class="footer-link">Contributing</a>
-        <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener" class="footer-link">CC BY 4.0</a>
-        <a href="https://stitch.withgoogle.com" target="_blank" rel="noopener" class="footer-badge">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-          Built with Google Stitch
-        </a>
+        <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener" class="footer-link">License</a>
       </div>
-    </div>
-    <div class="footer-bottom">
-      <span>A curated list maintained by the community.</span>
-      <span>Made with care for designers and developers.</span>
+      <span class="footer-built">Built with Google Stitch</span>
     </div>
   </footer>
 
@@ -1964,47 +1468,75 @@
 
     // ===== State =====
     let activeCategory = 'all';
-    let activeDevice = 'all';
     let searchQuery = '';
 
     // ===== DOM Elements =====
     const galleryGrid = document.getElementById('galleryGrid');
     const searchInput = document.getElementById('searchInput');
     const searchClear = document.getElementById('searchClear');
-    const visibleCount = document.getElementById('visibleCount');
     const emptyState = document.getElementById('emptyState');
     const modalBackdrop = document.getElementById('modalBackdrop');
     const modal = document.getElementById('modal');
     const modalImage = document.getElementById('modalImage');
     const modalTitle = document.getElementById('modalTitle');
     const modalPrompt = document.getElementById('modalPrompt');
-    const modalTags = document.getElementById('modalTags');
+    const modalMeta = document.getElementById('modalMeta');
+    const modalContributor = document.getElementById('modalContributor');
     const modalClose = document.getElementById('modalClose');
     const modalCopyBtn = document.getElementById('modalCopyBtn');
     const modalVoteBtn = document.getElementById('modalVoteBtn');
     const toast = document.getElementById('toast');
 
     // ===== SVG Icons =====
-    const copyIcon = '<svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>';
-    const checkIcon = '<svg viewBox="0 0 24 24" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
-    const desktopIcon = '<svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>';
-    const mobileIcon = '<svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>';
+    const copyIcon = '<svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>';
+    const checkIcon = '<svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
+
+    // ===== Theme Toggle =====
+    const themeToggle = document.getElementById('themeToggle');
+
+    function getPreferredTheme() {
+      const stored = localStorage.getItem('theme');
+      if (stored) return stored;
+      return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    }
+
+    function applyTheme(theme) {
+      if (theme === 'dark') {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      } else {
+        document.documentElement.removeAttribute('data-theme');
+      }
+      localStorage.setItem('theme', theme);
+    }
+
+    applyTheme(getPreferredTheme());
+
+    themeToggle.addEventListener('click', () => {
+      const current = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
+      applyTheme(current === 'dark' ? 'light' : 'dark');
+    });
+
+    // ===== Dynamic Stats =====
+    function updateStats() {
+      const totalPrompts = cards.length;
+      const categories = new Set(cards.map(c => c.category));
+      const pageTypes = new Set(cards.map(c => c.id.replace(/-.*$/, '')));
+      document.getElementById('statsLine').innerHTML =
+        `<span>${totalPrompts}</span> Prompts &middot; <span>${categories.size}</span> Categories &middot; <span>${pageTypes.size}</span> Page Types`;
+    }
 
     // ===== Render Cards =====
     function renderCards() {
       const filtered = cards.filter(card => {
         const matchCategory = activeCategory === 'all' ||
           (activeCategory === 'featured' ? card.featured === true : card.category === activeCategory);
-        const matchDevice = activeDevice === 'all' || card.device === activeDevice;
         const matchSearch = searchQuery === '' ||
           card.title.toLowerCase().includes(searchQuery) ||
           card.description.toLowerCase().includes(searchQuery) ||
           card.prompt.toLowerCase().includes(searchQuery) ||
           card.category.toLowerCase().includes(searchQuery);
-        return matchCategory && matchDevice && matchSearch;
+        return matchCategory && matchSearch;
       });
-
-      visibleCount.textContent = filtered.length;
 
       if (filtered.length === 0) {
         galleryGrid.innerHTML = '';
@@ -2014,43 +1546,31 @@
 
       emptyState.classList.remove('visible');
 
-      galleryGrid.innerHTML = filtered.map((card, i) => `
-        <div class="card${card.featured ? ' featured' : ''}" data-id="${card.id}" data-category="${card.category}" style="animation-delay: ${Math.min(i * 0.04, 0.36).toFixed(2)}s">
+      galleryGrid.innerHTML = filtered.map(card => `
+        <div class="card" data-id="${card.id}">
           <div class="card-image-wrapper">
-            ${card.featured ? '<div class="featured-badge">&#9733; Featured</div>' : ''}
+            ${card.featured ? '<div class="featured-badge">Featured</div>' : ''}
             <img class="card-image" src="${card.image}" alt="${card.title}" loading="lazy" onerror="this.style.display='none'">
-            <div class="card-image-overlay"></div>
             <div class="scroll-hint">
               <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
               <span>Hover to preview</span>
             </div>
-            <div class="card-expand-hint">Click to view prompt</div>
           </div>
           <div class="card-body">
-            <div class="card-tags">
-              <span class="category-tag ${card.category}">${card.category}</span>
-              <span class="device-tag">
-                ${card.device === 'Desktop' ? desktopIcon : mobileIcon}
-                ${card.device}
-              </span>
-            </div>
             <h3 class="card-title">${card.title}</h3>
-            <p class="card-description">${card.description}</p>
+            <div class="card-meta">${card.category} &middot; ${card.device}</div>
           </div>
-          <div class="card-actions">
-            <button class="btn-copy" data-prompt-id="${card.id}" onclick="event.stopPropagation(); copyPrompt('${card.id}', this)">
-              ${copyIcon}
-              Copy Prompt
-            </button>
-          </div>
-          <div class="card-contributor">
-            <a href="https://github.com/${card.contributor.username}" target="_blank" rel="noopener" onclick="event.stopPropagation()">
-              <img src="https://github.com/${card.contributor.username}.png?size=48" class="contributor-avatar" alt="${card.contributor.username}" loading="lazy">
-              ${card.contributor.username}
-            </a>
-            <a href="https://github.com/tygwan/awesome-stitch-design/discussions/${card.discussionNumber}" target="_blank" rel="noopener" class="card-vote" onclick="event.stopPropagation()" title="Vote for this prompt on GitHub">
-              <span class="vote-icon">&#128077;</span> Vote
-            </a>
+          <div class="card-footer">
+            <div class="card-contributor">
+              <a href="https://github.com/${card.contributor.username}" target="_blank" rel="noopener" onclick="event.stopPropagation()">
+                <img src="https://github.com/${card.contributor.username}.png?size=40" class="contributor-avatar" alt="${card.contributor.username}" loading="lazy">
+                ${card.contributor.username}
+              </a>
+            </div>
+            <div class="card-actions-row">
+              <button class="card-copy" data-id="${card.id}" onclick="event.stopPropagation(); copyPrompt('${card.id}', this)">Copy</button>
+              <a class="card-vote" href="https://github.com/tygwan/awesome-stitch-design/discussions/${card.discussionNumber}" target="_blank" rel="noopener" onclick="event.stopPropagation()">Vote</a>
+            </div>
           </div>
         </div>
       `).join('');
@@ -2058,7 +1578,7 @@
       // Attach click handlers for card expand
       document.querySelectorAll('.card').forEach(el => {
         el.addEventListener('click', (e) => {
-          if (e.target.closest('.btn-copy')) return;
+          if (e.target.closest('.card-copy') || e.target.closest('.card-vote') || e.target.closest('.card-contributor a')) return;
           const cardData = cards.find(c => c.id === el.dataset.id);
           if (cardData) openModal(cardData);
         });
@@ -2071,20 +1591,22 @@
       if (!card) return;
 
       navigator.clipboard.writeText(card.prompt).then(() => {
-        // Button feedback
         if (btnEl) {
-          btnEl.classList.add('copied');
-          btnEl.innerHTML = checkIcon + ' Copied!';
+          const original = btnEl.textContent;
+          btnEl.textContent = 'Copied!';
+          if (btnEl.classList.contains('modal-btn-primary')) {
+            btnEl.classList.add('copied');
+          }
           setTimeout(() => {
+            btnEl.textContent = original === 'Copy' ? 'Copy' : 'Copy Prompt';
+            btnEl.innerHTML = btnEl.classList.contains('modal-btn-primary')
+              ? copyIcon + ' Copy Prompt'
+              : 'Copy';
             btnEl.classList.remove('copied');
-            btnEl.innerHTML = copyIcon + ' Copy Prompt';
           }, 2000);
         }
-
-        // Toast
         showToast('Prompt copied to clipboard!');
       }).catch(() => {
-        // Fallback
         const textarea = document.createElement('textarea');
         textarea.value = card.prompt;
         document.body.appendChild(textarea);
@@ -2102,27 +1624,21 @@
     }
 
     // ===== Modal =====
-    const modalContributor = document.getElementById('modalContributor');
-
     function openModal(card) {
       modalImage.src = card.image;
       modalImage.alt = card.title;
       modalTitle.textContent = card.title;
       modalPrompt.textContent = card.prompt;
-      modalTags.innerHTML = `
-        <span class="category-tag ${card.category}">${card.category}</span>
-        <span class="device-tag">
-          ${card.device === 'Desktop' ? desktopIcon : mobileIcon}
-          ${card.device}
-        </span>
-      `;
+      modalMeta.innerHTML = `<span>${card.category}</span> &middot; <span>${card.device}</span>`;
       modalContributor.innerHTML = `
-        <span class="modal-contributor-label">Contributed by</span>
+        <span>Contributed by</span>
         <a href="https://github.com/${card.contributor.username}" target="_blank" rel="noopener">
-          <img src="https://github.com/${card.contributor.username}.png?size=64" class="contributor-avatar" alt="${card.contributor.username}" loading="lazy">
+          <img src="https://github.com/${card.contributor.username}.png?size=56" class="contributor-avatar" alt="${card.contributor.username}" loading="lazy">
           @${card.contributor.username}
         </a>
       `;
+      modalCopyBtn.innerHTML = copyIcon + ' Copy Prompt';
+      modalCopyBtn.classList.remove('copied');
       modalCopyBtn.onclick = () => copyPrompt(card.id, modalCopyBtn);
       modalVoteBtn.href = `https://github.com/tygwan/awesome-stitch-design/discussions/${card.discussionNumber}`;
       modalBackdrop.classList.add('open');
@@ -2132,9 +1648,6 @@
     function closeModal() {
       modalBackdrop.classList.remove('open');
       document.body.style.overflow = '';
-      // Reset copy button in modal
-      modalCopyBtn.classList.remove('copied');
-      modalCopyBtn.innerHTML = copyIcon + ' Copy Prompt';
     }
 
     modalClose.addEventListener('click', closeModal);
@@ -2146,20 +1659,11 @@
     });
 
     // ===== Filters =====
-    document.querySelectorAll('.filter-chip').forEach(chip => {
-      chip.addEventListener('click', () => {
-        document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
-        chip.classList.add('active');
-        activeCategory = chip.dataset.category;
-        renderCards();
-      });
-    });
-
-    document.querySelectorAll('.device-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        document.querySelectorAll('.device-btn').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        activeDevice = btn.dataset.device;
+    document.querySelectorAll('.filter-tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        activeCategory = tab.dataset.category;
         renderCards();
       });
     });
@@ -2186,18 +1690,15 @@
 
     function resetFilters() {
       activeCategory = 'all';
-      activeDevice = 'all';
       searchQuery = '';
       searchInput.value = '';
       searchClear.classList.remove('visible');
-      document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
-      document.querySelector('.filter-chip[data-category="all"]').classList.add('active');
-      document.querySelectorAll('.device-btn').forEach(b => b.classList.remove('active'));
-      document.querySelector('.device-btn[data-device="all"]').classList.add('active');
+      document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+      document.querySelector('.filter-tab[data-category="all"]').classList.add('active');
       renderCards();
     }
 
-    // ===== Hover scroll setup =====
+    // ===== Hover Scroll =====
     function setupHoverScroll() {
       document.querySelectorAll('.card-image-wrapper').forEach(wrapper => {
         const img = wrapper.querySelector('.card-image');
@@ -2218,7 +1719,7 @@
           }
         };
 
-        if (img.complete) {
+        if (img.complete && img.naturalHeight > 0) {
           applyScroll();
         } else {
           img.addEventListener('load', applyScroll);
@@ -2233,22 +1734,33 @@
       requestAnimationFrame(() => setTimeout(setupHoverScroll, 100));
     };
 
-    // ===== Dynamic stats =====
-    function updateStats() {
-      const totalPrompts = cards.length;
-      const categories = new Set(cards.map(c => c.category));
-      const pageTypes = new Set(cards.map(c => c.id.replace(/-\d+$/, '').replace(/^(landing|pricing|about|team|blog|portfolio|dashboard|settings|onboarding|signup|chat|feed|listing|detail|cart|checkout|tracking|login|404|search|email|cms|admin|table|kanban|calendar).*/, '$1')));
+    // ===== Contributors =====
+    function renderContributors() {
+      const contributorMap = {};
+      cards.forEach(card => {
+        const u = card.contributor.username;
+        if (!contributorMap[u]) {
+          contributorMap[u] = { username: u, name: card.contributor.name, count: 0 };
+        }
+        contributorMap[u].count++;
+      });
 
-      document.getElementById('heroBadgeCount').textContent = totalPrompts;
-      document.getElementById('statPrompts').textContent = totalPrompts;
-      document.getElementById('statCategories').textContent = categories.size;
-      // Page types: count unique subcategory titles (each pair shares a type)
-      document.getElementById('statPageTypes').textContent = Math.ceil(totalPrompts / 2);
+      const contributorsGrid = document.getElementById('contributorsGrid');
+      contributorsGrid.innerHTML = Object.values(contributorMap).map(c => `
+        <div class="contributor-card">
+          <img src="https://github.com/${c.username}.png?size=96" alt="${c.username}" class="contributor-card-avatar" loading="lazy">
+          <div class="contributor-card-info">
+            <div class="contributor-card-name"><a href="https://github.com/${c.username}" target="_blank" rel="noopener">${c.username}</a></div>
+            <div class="contributor-card-meta">${c.count} prompts contributed</div>
+          </div>
+        </div>
+      `).join('');
     }
 
     // ===== Init =====
     updateStats();
     renderCards();
+    renderContributors();
   </script>
 </body>
 </html>
