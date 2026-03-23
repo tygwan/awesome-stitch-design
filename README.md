@@ -8,32 +8,26 @@
 
 Google Stitch lets you generate high-fidelity UI designs from text prompts, voice input, or hand-drawn sketches, powered by Gemini. This list collects the best prompts, examples, and resources to help you master "vibe design."
 
+## How to Use
+
+<p align="center">
+  <img src="assets/how-to-use.png" alt="How to Use" width="800">
+</p>
+
+1. **Write a Prompt** — Describe the UI you want to create (page type, layout, components, style)
+2. **Generate with Stitch** — Paste the prompt into [Google Stitch](https://stitch.withgoogle.com) and generate your design
+3. **Share & Contribute** — Share your best results with the community!
+
+> **Browse the [Gallery](https://tygwan.github.io/awesome-stitch-design/)** to discover and copy 44+ curated prompts.
+
 ## How to Contribute
 
 We welcome contributions from everyone! Share your best Stitch prompts and designs:
 
-1. **Browse the [Gallery](https://tygwan.github.io/awesome-stitch-design/)** to see existing prompts
-2. **[Submit via Pull Request](CONTRIBUTING.md)** — Fork, add your prompt with a preview, and submit a PR
-3. **[Submit via Issue](https://github.com/tygwan/awesome-stitch-design/issues/new?template=submit-resource.yml)** — Fill out the form and we'll add it for you
+- **[Submit via Pull Request](CONTRIBUTING.md)** — Fork, add your prompt with a preview, and submit a PR
+- **[Submit via Issue](https://github.com/tygwan/awesome-stitch-design/issues/new?template=submit-resource.yml)** — Fill out the form and we'll add it for you
 
-> Your GitHub profile will be displayed alongside your contribution in the gallery.
-
-## Contents
-
-- [Official Resources](#official-resources)
-- [Prompts](#prompts)
-  - [Marketing & Public](#marketing--public) — Landing Page, Pricing, About/Team, Blog/Article, Portfolio
-  - [Product & App](#product--app) — Dashboard, Settings/Profile, Onboarding/Sign-up, Chat/Messaging, Feed/Timeline
-  - [Commerce](#commerce) — Product Listing, Product Detail, Cart/Checkout, Order Tracking
-  - [Utility](#utility) — Login/Auth, 404/Error, Search Results, Email/Newsletter
-  - [Admin](#admin) — Admin Panel/CMS, Data Table/CRUD, Kanban Board, Calendar/Scheduling
-- [Sketch to Design](#sketch-to-design)
-- [Tutorials & Guides](#tutorials--guides)
-- [SDK & MCP](#sdk--mcp)
-- [Tools & Extensions](#tools--extensions)
-- [Articles & Blog Posts](#articles--blog-posts)
-- [Videos](#videos)
-- [Community](#community)
+> Your GitHub profile will be displayed alongside your contribution in the [Gallery](https://tygwan.github.io/awesome-stitch-design/).
 
 ## Official Resources
 
@@ -44,6 +38,53 @@ We welcome contributions from everyone! Share your best Stitch prompts and desig
 - [Stitch SDK](https://github.com/google-labs-code/stitch-sdk) - Official SDK for programmatic access (`@google/stitch-sdk`).
 - [Stitch MCP Setup](https://stitch.withgoogle.com/docs/mcp/setup) - Official MCP server documentation for editor integration.
 - [Design-to-Code Codelab](https://codelabs.developers.google.com/design-to-code-with-antigravity-stitch?hl=en) - Google Codelabs tutorial: Design-to-Code with Antigravity and Stitch MCP.
+
+## Tutorials & Guides
+
+- [Google Stitch Tutorial: AI-Powered UI Design Tool](https://www.codecademy.com/article/google-stitch-tutorial-ai-powered-ui-design-tool) - Step-by-step guide for designing mobile app UI with Stitch (Codecademy).
+
+## SDK & MCP
+
+- [Stitch SDK](https://github.com/google-labs-code/stitch-sdk) - Official Node.js SDK for generating screens, editing, creating variants, and extracting HTML/screenshots.
+- [Stitch MCP Server (Community)](https://github.com/davideast/stitch-mcp) - Community-built MCP server for integrating Stitch with Claude Code, Cursor, and other editors.
+- [stitchkit](https://github.com/tygwan/stitchkit) - Claude Code plugin for Stitch & Figma design workflows with skills, agents, and MCP setup.
+
+## Tools & Extensions
+
+- [Stitch Figma Plugin](https://www.figma.com/community/plugin/stitch) - Import Stitch designs directly into Figma projects.
+- [Antigravity](https://labs.google/antigravity) - Google Labs tool that pairs with Stitch for design-to-code workflows.
+
+## Articles & Blog Posts
+
+- [Google Stitch Complete Guide](https://www.nxcode.io/resources/news/google-stitch-complete-guide-vibe-design-2026) - Comprehensive guide covering all Stitch features (NxCode).
+- [Google Stitch: A Product Designer's Review](https://www.bitovi.com/blog/google-stitch-a-product-designers-review) - In-depth review from a designer's perspective (Bitovi).
+- [Google Stitch AI Review for UI Designers](https://www.index.dev/blog/google-stitch-ai-review-for-ui-designers) - Review focused on practical design workflows (Index.dev).
+- [Google Stitch vs v0 vs Lovable](https://www.nxcode.io/resources/news/google-stitch-vs-v0-vs-lovable-ai-app-builder-2026) - Comparison of AI app builder tools (NxCode).
+
+## Videos
+
+- [Google Stitch: AI UI Design in Minutes](https://www.youtube.com/results?search_query=google+stitch+ui+design) - Search for the latest Stitch tutorials and demos on YouTube.
+
+## Community
+
+- [Google AI Developers Forum - Stitch](https://discuss.ai.google.dev/tag/stitch) - Official discussion forum for Stitch on Google AI Developers.
+- [r/GoogleStitch](https://www.reddit.com/r/GoogleStitch/) - Reddit community for sharing Stitch designs and tips.
+
+## Sketch to Design
+
+*Stitch can transform hand-drawn sketches into polished UI designs. Upload a photo of your sketch and Stitch will generate a high-fidelity version.*
+
+> **Tip:** For best results, draw clear wireframes with labeled elements. Stitch interprets layout structure, component types, and annotations.
+
+---
+
+## Contents
+
+- [Marketing & Public](#marketing--public) — Landing Page, Pricing, About/Team, Blog/Article, Portfolio
+- [Product & App](#product--app) — Dashboard, Settings/Profile, Onboarding/Sign-up, Chat/Messaging, Feed/Timeline
+- [Commerce](#commerce) — Product Listing, Product Detail, Cart/Checkout, Order Tracking
+- [Utility](#utility) — Login/Auth, 404/Error, Search Results, Email/Newsletter
+- [Admin](#admin) — Admin Panel/CMS, Data Table/CRUD, Kanban Board, Calendar/Scheduling
 
 ## Prompts
 
@@ -186,42 +227,6 @@ We welcome contributions from everyone! Share your best Stitch prompts and desig
 - **Medical Appointment Booking** - `Design a booking calendar for a medical appointment system. Monthly view with available dates highlighted in green, selected date shows available time slots as tappable buttons. Include doctor profile card with photo, name, specialty, and rating. Side panel shows booking summary with date, time, doctor, and "Confirm Booking" button. Professional healthcare design with calming blue-green tones.` — Healthcare booking with availability calendar and doctor profiles.
 
 ---
-
-## Sketch to Design
-
-*Stitch can transform hand-drawn sketches into polished UI designs. Upload a photo of your sketch and Stitch will generate a high-fidelity version.*
-
-> **Tip:** For best results, draw clear wireframes with labeled elements. Stitch interprets layout structure, component types, and annotations.
-
-## Tutorials & Guides
-
-- [Google Stitch Tutorial: AI-Powered UI Design Tool](https://www.codecademy.com/article/google-stitch-tutorial-ai-powered-ui-design-tool) - Step-by-step guide for designing mobile app UI with Stitch (Codecademy).
-
-## SDK & MCP
-
-- [Stitch SDK](https://github.com/google-labs-code/stitch-sdk) - Official Node.js SDK for generating screens, editing, creating variants, and extracting HTML/screenshots.
-- [Stitch MCP Server (Community)](https://github.com/davideast/stitch-mcp) - Community-built MCP server for integrating Stitch with Claude Code, Cursor, and other editors.
-
-## Tools & Extensions
-
-- [Stitch Figma Plugin](https://www.figma.com/community/plugin/stitch) - Import Stitch designs directly into Figma projects.
-- [Antigravity](https://labs.google/antigravity) - Google Labs tool that pairs with Stitch for design-to-code workflows.
-
-## Articles & Blog Posts
-
-- [Google Stitch Complete Guide](https://www.nxcode.io/resources/news/google-stitch-complete-guide-vibe-design-2026) - Comprehensive guide covering all Stitch features (NxCode).
-- [Google Stitch: A Product Designer's Review](https://www.bitovi.com/blog/google-stitch-a-product-designers-review) - In-depth review from a designer's perspective (Bitovi).
-- [Google Stitch AI Review for UI Designers](https://www.index.dev/blog/google-stitch-ai-review-for-ui-designers) - Review focused on practical design workflows (Index.dev).
-- [Google Stitch vs v0 vs Lovable](https://www.nxcode.io/resources/news/google-stitch-vs-v0-vs-lovable-ai-app-builder-2026) - Comparison of AI app builder tools (NxCode).
-
-## Videos
-
-- [Google Stitch: AI UI Design in Minutes](https://www.youtube.com/results?search_query=google+stitch+ui+design) - Search for the latest Stitch tutorials and demos on YouTube.
-
-## Community
-
-- [Google AI Developers Forum - Stitch](https://discuss.ai.google.dev/tag/stitch) - Official discussion forum for Stitch on Google AI Developers.
-- [r/GoogleStitch](https://www.reddit.com/r/GoogleStitch/) - Reddit community for sharing Stitch designs and tips.
 
 ## Contributing
 
