@@ -1,0 +1,22 @@
+name: Awesome Lint
+
+on:
+  pull_request:
+    paths:
+      - 'README.md'
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Run awesome-lint
+        run: npx awesome-lint

@@ -39,7 +39,6 @@
 
     /* ===== Reset ===== */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
     html { scroll-behavior: smooth; }
 
     body {
@@ -97,9 +96,7 @@
       transition: color var(--transition);
     }
 
-    .header-link:hover {
-      color: var(--accent);
-    }
+    .header-link:hover { color: var(--accent); }
 
     .theme-toggle {
       display: flex;
@@ -117,11 +114,7 @@
       background: var(--bg-section);
     }
 
-    .theme-toggle svg {
-      width: 18px;
-      height: 18px;
-    }
-
+    .theme-toggle svg { width: 18px; height: 18px; }
     .theme-toggle .icon-moon { display: none; }
     html[data-theme="dark"] .theme-toggle .icon-sun { display: none; }
     html[data-theme="dark"] .theme-toggle .icon-moon { display: block; }
@@ -209,23 +202,30 @@
       margin-bottom: -1px;
     }
 
-    .filter-tab:hover {
-      color: var(--text-heading);
-    }
+    .filter-tab:hover { color: var(--text-heading); }
 
     .filter-tab.active {
       color: var(--text-heading);
       border-bottom-color: var(--accent);
     }
 
+    .controls-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
     .search-wrapper {
       position: relative;
+      flex: 1;
+      min-width: 200px;
       max-width: 400px;
     }
 
     .search-input {
       width: 100%;
-      padding: 10px 14px 10px 14px;
+      padding: 10px 14px;
       background: var(--bg);
       border: 1px solid var(--border);
       border-radius: 6px;
@@ -236,13 +236,8 @@
       transition: border-color var(--transition), background var(--transition), color var(--transition);
     }
 
-    .search-input::placeholder {
-      color: var(--text-muted);
-    }
-
-    .search-input:focus {
-      border-color: var(--accent);
-    }
+    .search-input::placeholder { color: var(--text-muted); }
+    .search-input:focus { border-color: var(--accent); }
 
     .search-clear {
       position: absolute;
@@ -265,17 +260,17 @@
     .search-clear.visible { display: flex; }
     .search-clear:hover { color: var(--text-heading); }
 
-    .sort-wrapper { margin-top: 0.5rem; }
     .sort-select {
       font-family: var(--font);
       font-size: 0.8rem;
-      padding: 6px 12px;
+      padding: 8px 12px;
       border: 1px solid var(--border);
       border-radius: 6px;
       background: var(--bg);
       color: var(--text-body);
       cursor: pointer;
       outline: none;
+      transition: border-color var(--transition), background var(--transition), color var(--transition);
     }
     .sort-select:focus { border-color: var(--accent); }
 
@@ -308,11 +303,11 @@
       overflow: hidden;
       cursor: pointer;
       transition: border-color var(--transition), background var(--transition);
+      touch-action: manipulation;
+      -webkit-tap-highlight-color: transparent;
     }
 
-    .card:hover {
-      border-color: var(--accent);
-    }
+    .card:hover { border-color: var(--accent); }
 
     .card-image-wrapper {
       position: relative;
@@ -329,6 +324,16 @@
       top: 0;
       left: 0;
       transition: top 3s ease-in-out;
+    }
+
+    .card-image-placeholder {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-muted);
+      font-size: 0.8rem;
     }
 
     .scroll-hint {
@@ -365,13 +370,9 @@
       50% { transform: translateY(3px); }
     }
 
-    .card:hover .scroll-hint {
-      opacity: 0;
-    }
+    .card:hover .scroll-hint { opacity: 0; }
 
-    .card-body {
-      padding: 16px;
-    }
+    .card-body { padding: 16px; }
 
     .card-title {
       font-size: 0.9rem;
@@ -417,9 +418,7 @@
       transition: color var(--transition);
     }
 
-    .card-contributor a:hover {
-      color: var(--text-heading);
-    }
+    .card-contributor a:hover { color: var(--text-heading); }
 
     .contributor-avatar {
       width: 20px;
@@ -447,9 +446,7 @@
     }
 
     .card-copy:hover,
-    .card-vote:hover {
-      color: var(--accent-hover);
-    }
+    .card-vote:hover { color: var(--accent-hover); }
 
     /* ===== Featured badge ===== */
     .featured-badge {
@@ -501,8 +498,13 @@
       transition: border-color var(--transition), color var(--transition), background var(--transition);
     }
 
-    .empty-state button:hover {
-      border-color: var(--accent);
+    .empty-state button:hover { border-color: var(--accent); }
+
+    /* ===== Lazy load sentinel ===== */
+    .load-sentinel {
+      width: 100%;
+      height: 1px;
+      grid-column: 1 / -1;
     }
 
     /* ===== Modal ===== */
@@ -518,6 +520,7 @@
       opacity: 0;
       visibility: hidden;
       transition: opacity 0.2s ease, visibility 0.2s ease;
+      -webkit-tap-highlight-color: transparent;
     }
 
     .modal-backdrop.open {
@@ -535,11 +538,10 @@
       overflow-y: auto;
       transform: translateY(10px);
       transition: transform 0.2s ease, background var(--transition), border-color var(--transition);
+      -webkit-overflow-scrolling: touch;
     }
 
-    .modal-backdrop.open .modal {
-      transform: translateY(0);
-    }
+    .modal-backdrop.open .modal { transform: translateY(0); }
 
     .modal::-webkit-scrollbar { width: 4px; }
     .modal::-webkit-scrollbar-track { background: transparent; }
@@ -580,9 +582,7 @@
 
     .modal-close:hover { background: rgba(0, 0, 0, 0.7); }
 
-    .modal-body {
-      padding: 24px;
-    }
+    .modal-body { padding: 24px; }
 
     .modal-meta {
       display: flex;
@@ -623,14 +623,8 @@
       transition: color var(--transition);
     }
 
-    .modal-contributor a:hover {
-      color: var(--accent);
-    }
-
-    .modal-contributor .contributor-avatar {
-      width: 28px;
-      height: 28px;
-    }
+    .modal-contributor a:hover { color: var(--accent); }
+    .modal-contributor .contributor-avatar { width: 28px; height: 28px; }
 
     .modal-prompt-label {
       font-size: 0.7rem;
@@ -698,9 +692,7 @@
       border: 1px solid var(--border);
     }
 
-    .modal-btn-secondary:hover {
-      border-color: var(--accent);
-    }
+    .modal-btn-secondary:hover { border-color: var(--accent); }
 
     .modal-btn svg {
       width: 14px;
@@ -731,6 +723,126 @@
     .toast.show {
       opacity: 1;
       transform: translateX(-50%) translateY(0);
+    }
+
+    /* ===== stitchkit Promo (AC14) ===== */
+    .stitchkit-promo {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px 40px;
+    }
+
+    .promo-inner {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 32px;
+      text-align: center;
+      transition: border-color var(--transition), background var(--transition);
+    }
+
+    .promo-inner:hover {
+      border-color: var(--accent);
+    }
+
+    .promo-inner h3 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--text-heading);
+      margin-bottom: 8px;
+      letter-spacing: -0.02em;
+      transition: color var(--transition);
+    }
+
+    .promo-inner p {
+      font-size: 0.9rem;
+      color: var(--text-body);
+      max-width: 520px;
+      margin: 0 auto 20px;
+      line-height: 1.6;
+    }
+
+    .promo-btn {
+      display: inline-block;
+      padding: 10px 24px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--accent);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      background: none;
+      transition: border-color var(--transition), color var(--transition);
+    }
+
+    .promo-btn:hover {
+      border-color: var(--accent);
+      color: var(--accent-hover);
+    }
+
+    /* ===== Guide Section ===== */
+    .guide-section {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 40px 24px;
+    }
+
+    .guide-section h2 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--text-heading);
+      letter-spacing: -0.02em;
+      margin-bottom: 24px;
+      transition: color var(--transition);
+    }
+
+    .guide-content {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 32px;
+      font-size: 0.9rem;
+      line-height: 1.8;
+      color: var(--text-body);
+      transition: background var(--transition), border-color var(--transition), color var(--transition);
+    }
+
+    .guide-content h1,
+    .guide-content h2,
+    .guide-content h3 {
+      color: var(--text-heading);
+      margin-top: 24px;
+      margin-bottom: 12px;
+      transition: color var(--transition);
+    }
+
+    .guide-content h1 { font-size: 1.5rem; }
+    .guide-content h2 { font-size: 1.2rem; }
+    .guide-content h3 { font-size: 1rem; }
+
+    .guide-content p { margin-bottom: 12px; }
+
+    .guide-content ul, .guide-content ol {
+      margin-left: 24px;
+      margin-bottom: 12px;
+    }
+
+    .guide-content code {
+      background: var(--bg-section);
+      padding: 2px 6px;
+      border-radius: 3px;
+      font-size: 0.85em;
+    }
+
+    .guide-content a {
+      color: var(--accent);
+      text-decoration: underline;
+    }
+
+    .guide-content blockquote {
+      border-left: 3px solid var(--accent);
+      padding-left: 16px;
+      margin: 16px 0;
+      color: var(--text-muted);
     }
 
     /* ===== Contributors Section ===== */
@@ -767,9 +879,7 @@
       transition: border-color var(--transition), background var(--transition);
     }
 
-    .contributor-card:hover {
-      border-color: var(--accent);
-    }
+    .contributor-card:hover { border-color: var(--accent); }
 
     .contributor-card-avatar {
       width: 48px;
@@ -796,9 +906,7 @@
       transition: color var(--transition);
     }
 
-    .contributor-card-name a:hover {
-      color: var(--accent);
-    }
+    .contributor-card-name a:hover { color: var(--accent); }
 
     .contributor-card-meta {
       font-size: 0.75rem;
@@ -806,9 +914,7 @@
       transition: color var(--transition);
     }
 
-    .contributor-cta {
-      margin-top: 8px;
-    }
+    .contributor-cta { margin-top: 8px; }
 
     .contributor-cta a {
       font-size: 0.85rem;
@@ -817,9 +923,7 @@
       transition: color var(--transition);
     }
 
-    .contributor-cta a:hover {
-      color: var(--accent-hover);
-    }
+    .contributor-cta a:hover { color: var(--accent-hover); }
 
     /* ===== Footer ===== */
     .footer {
@@ -853,9 +957,7 @@
       transition: color var(--transition);
     }
 
-    .footer-link:hover {
-      color: var(--accent);
-    }
+    .footer-link:hover { color: var(--accent); }
 
     .footer-built {
       color: var(--text-muted);
@@ -870,6 +972,8 @@
       .main-header { padding: 40px 24px 32px; }
       .header-right { gap: 16px; }
       .filters-row { gap: 20px; }
+      .controls-row { flex-direction: column; align-items: stretch; }
+      .search-wrapper { max-width: none; }
     }
   </style>
 </head>
@@ -884,6 +988,7 @@
           <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
           <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
         </button>
+        <a href="#guide" class="header-link">Guide</a>
         <a href="https://github.com/tygwan/awesome-stitch-design" target="_blank" rel="noopener" class="header-link">GitHub</a>
         <a href="https://github.com/tygwan/awesome-stitch-design/blob/main/CONTRIBUTING.md" target="_blank" rel="noopener" class="header-link">Contribute</a>
       </div>
@@ -900,25 +1005,16 @@
 
   <!-- Filters -->
   <section class="filters-section">
-    <nav class="filters-row" id="filterBar">
-      <button class="filter-tab active" data-category="all">All</button>
-      <button class="filter-tab" data-category="marketing">Marketing</button>
-      <button class="filter-tab" data-category="product">Product</button>
-      <button class="filter-tab" data-category="commerce">Commerce</button>
-      <button class="filter-tab" data-category="utility">Utility</button>
-      <button class="filter-tab" data-category="admin">Admin</button>
-      <button class="filter-tab" data-category="featured">Featured</button>
-    </nav>
-    <div class="search-wrapper">
-      <input type="text" class="search-input" id="searchInput" placeholder="Search prompts...">
-      <button class="search-clear" id="searchClear" aria-label="Clear search">&times;</button>
-    </div>
-    <div class="sort-wrapper">
+    <nav class="filters-row" id="filterBar"></nav>
+    <div class="controls-row">
+      <div class="search-wrapper">
+        <input type="text" class="search-input" id="searchInput" placeholder="Search prompts...">
+        <button class="search-clear" id="searchClear" aria-label="Clear search">&times;</button>
+      </div>
       <select id="sortSelect" class="sort-select">
+        <option value="category" selected>Category</option>
         <option value="shuffle">Shuffle</option>
-        <option value="newest">Newest</option>
-        <option value="oldest">Oldest</option>
-        <option value="az">A → Z</option>
+        <option value="az">A &rarr; Z</option>
       </select>
     </div>
   </section>
@@ -964,6 +1060,23 @@
   <!-- Toast -->
   <div class="toast" id="toast">Prompt copied to clipboard!</div>
 
+  <!-- stitchkit Promo (AC14) -->
+  <section class="stitchkit-promo">
+    <div class="promo-inner">
+      <h3>stitchkit — Claude Code Plugin</h3>
+      <p>Generate Stitch designs directly from Claude Code with MCP integration, design skills, and prompt templates.</p>
+      <a href="https://github.com/tygwan/stitchkit" target="_blank" rel="noopener" class="promo-btn">Learn More</a>
+    </div>
+  </section>
+
+  <!-- Guide -->
+  <section class="guide-section" id="guide">
+    <h2>Getting Started Guide</h2>
+    <div class="guide-content" id="guideContent">
+      <p>Loading guide...</p>
+    </div>
+  </section>
+
   <!-- Contributors -->
   <section class="contributors-section">
     <h2>Contributors</h2>
@@ -986,30 +1099,26 @@
   </footer>
 
   <script>
-    // ===== Card Data (loaded from data/prompts.json) =====
-    let cards = [];
-
-    async function loadCards() {
-      try {
-        const resp = await fetch('data/prompts.json');
-        const data = await resp.json();
-        cards = data.prompts;
-      } catch (e) {
-        console.error('Failed to load prompts:', e);
-      }
-      updateStats();
-      renderCards();
-      renderContributors();
-    }
-
     // ===== State =====
+    let cards = [];
     let activeCategory = 'all';
     let searchQuery = '';
+    let currentSort = 'category';
+    let currentModalId = null;
+
+    // ===== Lazy rendering state (AC10) =====
+    const INITIAL_RENDER_COUNT = 24;
+    const LOAD_MORE_COUNT = 12;
+    let filteredCards = [];
+    let renderedCount = 0;
+    let sentinelObserver = null;
 
     // ===== DOM Elements =====
     const galleryGrid = document.getElementById('galleryGrid');
+    const filterBar = document.getElementById('filterBar');
     const searchInput = document.getElementById('searchInput');
     const searchClear = document.getElementById('searchClear');
+    const sortSelect = document.getElementById('sortSelect');
     const emptyState = document.getElementById('emptyState');
     const modalBackdrop = document.getElementById('modalBackdrop');
     const modal = document.getElementById('modal');
@@ -1025,7 +1134,6 @@
 
     // ===== SVG Icons =====
     const copyIcon = '<svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>';
-    const checkIcon = '<svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
 
     // ===== Theme Toggle =====
     const themeToggle = document.getElementById('themeToggle');
@@ -1052,13 +1160,111 @@
       applyTheme(current === 'dark' ? 'light' : 'dark');
     });
 
+    // ===== Category display names (AC7) =====
+    const CATEGORY_LABELS = {
+      marketing: 'Marketing',
+      product: 'Product',
+      commerce: 'Commerce',
+      utility: 'Utility',
+      admin: 'Admin',
+    };
+
+    const CATEGORY_ORDER = ['marketing', 'product', 'commerce', 'utility', 'admin'];
+
+    // ===== Load Cards =====
+    async function loadCards() {
+      try {
+        const resp = await fetch('data/prompts.json');
+        const data = await resp.json();
+        cards = data.prompts || data;
+      } catch (e) {
+        console.error('Failed to load prompts:', e);
+      }
+      buildFilterTabs();
+      updateStats();
+      readURLState();
+      renderCards();
+      renderContributors();
+      checkDeepLink();
+    }
+
+    // ===== Dynamic Filter Tabs (AC7) =====
+    function buildFilterTabs() {
+      const categories = [...new Set(cards.map(c => c.category))];
+      // Sort by predefined order
+      categories.sort((a, b) => {
+        const ai = CATEGORY_ORDER.indexOf(a);
+        const bi = CATEGORY_ORDER.indexOf(b);
+        return (ai === -1 ? 999 : ai) - (bi === -1 ? 999 : bi);
+      });
+
+      let html = '<button class="filter-tab' + (activeCategory === 'all' ? ' active' : '') + '" data-category="all">All</button>';
+      categories.forEach(cat => {
+        const label = CATEGORY_LABELS[cat] || cat.charAt(0).toUpperCase() + cat.slice(1);
+        const count = cards.filter(c => c.category === cat).length;
+        html += `<button class="filter-tab${activeCategory === cat ? ' active' : ''}" data-category="${cat}">${label} (${count})</button>`;
+      });
+      html += `<button class="filter-tab${activeCategory === 'featured' ? ' active' : ''}" data-category="featured">Featured</button>`;
+      filterBar.innerHTML = html;
+
+      // Attach event listeners
+      filterBar.querySelectorAll('.filter-tab').forEach(tab => {
+        tab.addEventListener('click', () => {
+          filterBar.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+          tab.classList.add('active');
+          activeCategory = tab.dataset.category;
+          updateURL();
+          renderCards();
+        });
+      });
+    }
+
     // ===== Dynamic Stats =====
     function updateStats() {
       const totalPrompts = cards.length;
       const categories = new Set(cards.map(c => c.category));
-      const pageTypes = new Set(cards.map(c => c.id.replace(/-.*$/, '')));
       document.getElementById('statsLine').innerHTML =
-        `<span>${totalPrompts}</span> Prompts &middot; <span>${categories.size}</span> Categories &middot; <span>${pageTypes.size}</span> Page Types`;
+        `<span>${totalPrompts}</span> Prompts &middot; <span>${categories.size}</span> Categories`;
+    }
+
+    // ===== URL State Management (AC9) =====
+    function updateURL() {
+      const params = new URLSearchParams();
+      if (activeCategory !== 'all') params.set('category', activeCategory);
+      if (searchQuery) params.set('q', searchQuery);
+      if (currentSort !== 'category') params.set('sort', currentSort);
+
+      const hash = currentModalId ? `#${currentModalId}` : '';
+      const search = params.toString() ? `?${params.toString()}` : '';
+      const newUrl = window.location.pathname + search + hash;
+      history.replaceState(null, '', newUrl);
+    }
+
+    function readURLState() {
+      const params = new URLSearchParams(window.location.search);
+      if (params.has('category')) {
+        activeCategory = params.get('category');
+      }
+      if (params.has('q')) {
+        searchQuery = params.get('q');
+        searchInput.value = searchQuery;
+        searchClear.classList.toggle('visible', searchQuery.length > 0);
+      }
+      if (params.has('sort')) {
+        currentSort = params.get('sort');
+        sortSelect.value = currentSort;
+      }
+    }
+
+    function checkDeepLink() {
+      const hash = window.location.hash.slice(1);
+      if (hash) {
+        const card = cards.find(c => c.id === hash);
+        if (card) {
+          // Small delay to ensure cards are rendered
+          setTimeout(() => openModal(card), 100);
+        }
+      }
     }
 
     // ===== Shuffle utility =====
@@ -1071,41 +1277,13 @@
       return a;
     }
 
-    let currentSort = 'shuffle';
-    const sortSelect = document.getElementById('sortSelect');
-    sortSelect.addEventListener('change', () => { currentSort = sortSelect.value; renderCards(); });
-
-    // ===== Render Cards =====
-    function renderCards() {
-      let filtered = cards.filter(card => {
-        const matchCategory = activeCategory === 'all' ||
-          (activeCategory === 'featured' ? card.featured === true : card.category === activeCategory);
-        const matchSearch = searchQuery === '' ||
-          card.title.toLowerCase().includes(searchQuery) ||
-          card.description.toLowerCase().includes(searchQuery) ||
-          card.prompt.toLowerCase().includes(searchQuery) ||
-          card.category.toLowerCase().includes(searchQuery);
-        return matchCategory && matchSearch;
-      });
-
-      // Sort
-      if (currentSort === 'shuffle') filtered = shuffleArray(filtered);
-      else if (currentSort === 'newest') filtered = [...filtered].reverse();
-      else if (currentSort === 'az') filtered = [...filtered].sort((a, b) => a.title.localeCompare(b.title));
-
-      if (filtered.length === 0) {
-        galleryGrid.innerHTML = '';
-        emptyState.classList.add('visible');
-        return;
-      }
-
-      emptyState.classList.remove('visible');
-
-      galleryGrid.innerHTML = filtered.map(card => `
+    // ===== Build single card HTML =====
+    function buildCardHTML(card) {
+      return `
         <div class="card" data-id="${card.id}">
           <div class="card-image-wrapper">
             ${card.featured ? '<div class="featured-badge">Featured</div>' : ''}
-            <img class="card-image" src="${card.image}" alt="${card.title}" loading="lazy" onerror="this.style.display='none'">
+            <img class="card-image" data-src="${card.image}" alt="${card.title}" loading="lazy" onerror="this.style.display='none'">
             <div class="scroll-hint">
               <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
               <span>Hover to preview</span>
@@ -1113,25 +1291,25 @@
           </div>
           <div class="card-body">
             <h3 class="card-title">${card.title}</h3>
-            <div class="card-meta">${card.category} &middot; ${card.device}</div>
           </div>
           <div class="card-footer">
             <div class="card-contributor">
               <a href="https://github.com/${card.contributor.username}" target="_blank" rel="noopener" onclick="event.stopPropagation()">
-                <img src="https://github.com/${card.contributor.username}.png?size=40" class="contributor-avatar" alt="${card.contributor.username}" loading="lazy">
+                <img data-src="https://github.com/${card.contributor.username}.png?size=40" class="contributor-avatar" alt="${card.contributor.username}" loading="lazy">
                 ${card.contributor.username}
               </a>
             </div>
             <div class="card-actions-row">
               <button class="card-copy" data-id="${card.id}" onclick="event.stopPropagation(); copyPrompt('${card.id}', this)">Copy</button>
-              <a class="card-vote" href="https://github.com/tygwan/awesome-stitch-design/discussions/${card.discussionNumber}" target="_blank" rel="noopener" onclick="event.stopPropagation()">Vote</a>
+              ${card.discussionNumber ? `<a class="card-vote" href="https://github.com/tygwan/awesome-stitch-design/discussions/${card.discussionNumber}" target="_blank" rel="noopener" onclick="event.stopPropagation()">Vote</a>` : ''}
             </div>
           </div>
-        </div>
-      `).join('');
+        </div>`;
+    }
 
-      // Attach click handlers for card expand
-      document.querySelectorAll('.card').forEach(el => {
+    // ===== Attach card click handlers for a set of card elements =====
+    function attachCardHandlers(cardElements) {
+      cardElements.forEach(el => {
         el.addEventListener('click', (e) => {
           if (e.target.closest('.card-copy') || e.target.closest('.card-vote') || e.target.closest('.card-contributor a')) return;
           const cardData = cards.find(c => c.id === el.dataset.id);
@@ -1140,27 +1318,167 @@
       });
     }
 
+    // ===== Render Cards with lazy rendering (AC8 default=category, AC10 lazy loading) =====
+    function renderCards() {
+      // Disconnect previous sentinel observer
+      if (sentinelObserver) {
+        sentinelObserver.disconnect();
+        sentinelObserver = null;
+      }
+
+      filteredCards = cards.filter(card => {
+        const matchCategory = activeCategory === 'all' ||
+          (activeCategory === 'featured' ? card.featured === true : card.category === activeCategory);
+        const matchSearch = searchQuery === '' ||
+          card.title.toLowerCase().includes(searchQuery) ||
+          card.description.toLowerCase().includes(searchQuery) ||
+          (card.prompt && card.prompt.toLowerCase().includes(searchQuery)) ||
+          card.category.toLowerCase().includes(searchQuery);
+        return matchCategory && matchSearch;
+      });
+
+      // Sort (AC8)
+      if (currentSort === 'category') {
+        filteredCards = [...filteredCards].sort((a, b) => {
+          const ai = CATEGORY_ORDER.indexOf(a.category);
+          const bi = CATEGORY_ORDER.indexOf(b.category);
+          if (ai !== bi) return ai - bi;
+          return a.title.localeCompare(b.title);
+        });
+      } else if (currentSort === 'shuffle') {
+        filteredCards = shuffleArray(filteredCards);
+      } else if (currentSort === 'az') {
+        filteredCards = [...filteredCards].sort((a, b) => a.title.localeCompare(b.title));
+      }
+
+      if (filteredCards.length === 0) {
+        galleryGrid.innerHTML = '';
+        emptyState.classList.add('visible');
+        return;
+      }
+
+      emptyState.classList.remove('visible');
+
+      // Render initial batch (AC10)
+      renderedCount = 0;
+      galleryGrid.innerHTML = '';
+      renderMoreCards(INITIAL_RENDER_COUNT);
+
+      // Setup sentinel-based IntersectionObserver for infinite scroll (AC10)
+      setupSentinel();
+    }
+
+    // ===== Render a batch of cards =====
+    function renderMoreCards(count) {
+      const start = renderedCount;
+      const end = Math.min(start + count, filteredCards.length);
+      if (start >= end) return;
+
+      const fragment = document.createDocumentFragment();
+      const temp = document.createElement('div');
+
+      for (let i = start; i < end; i++) {
+        temp.innerHTML = buildCardHTML(filteredCards[i]);
+        const cardEl = temp.firstElementChild;
+        fragment.appendChild(cardEl);
+      }
+
+      // Remove existing sentinel before appending new cards
+      const existingSentinel = galleryGrid.querySelector('.load-sentinel');
+      if (existingSentinel) existingSentinel.remove();
+
+      galleryGrid.appendChild(fragment);
+      renderedCount = end;
+
+      // Attach handlers to newly added cards
+      const newCards = galleryGrid.querySelectorAll('.card');
+      const newlyAdded = Array.from(newCards).slice(start);
+      attachCardHandlers(newlyAdded);
+
+      // Setup lazy image loading and hover scroll for new cards
+      setupLazyLoading();
+      requestAnimationFrame(() => setTimeout(setupHoverScroll, 100));
+    }
+
+    // ===== Sentinel for infinite scroll (AC10) =====
+    function setupSentinel() {
+      if (renderedCount >= filteredCards.length) return;
+
+      const sentinel = document.createElement('div');
+      sentinel.className = 'load-sentinel';
+      sentinel.setAttribute('aria-hidden', 'true');
+      galleryGrid.appendChild(sentinel);
+
+      if ('IntersectionObserver' in window) {
+        sentinelObserver = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              renderMoreCards(LOAD_MORE_COUNT);
+              // Re-create sentinel if more cards remain
+              if (renderedCount < filteredCards.length) {
+                const oldSentinel = galleryGrid.querySelector('.load-sentinel');
+                if (oldSentinel) oldSentinel.remove();
+                const newSentinel = document.createElement('div');
+                newSentinel.className = 'load-sentinel';
+                newSentinel.setAttribute('aria-hidden', 'true');
+                galleryGrid.appendChild(newSentinel);
+                sentinelObserver.observe(newSentinel);
+              } else {
+                sentinelObserver.disconnect();
+              }
+            }
+          });
+        }, {
+          rootMargin: '200px 0px',
+          threshold: 0.01
+        });
+
+        sentinelObserver.observe(sentinel);
+      } else {
+        // Fallback: render all
+        renderMoreCards(filteredCards.length - renderedCount);
+      }
+    }
+
+    // ===== Lazy Loading with IntersectionObserver =====
+    let lazyObserver = null;
+
+    function setupLazyLoading() {
+      if (lazyObserver) lazyObserver.disconnect();
+
+      const images = document.querySelectorAll('img[data-src]');
+      if ('IntersectionObserver' in window) {
+        lazyObserver = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              const img = entry.target;
+              img.src = img.dataset.src;
+              img.removeAttribute('data-src');
+              lazyObserver.unobserve(img);
+            }
+          });
+        }, {
+          rootMargin: '200px 0px',
+          threshold: 0.01
+        });
+
+        images.forEach(img => lazyObserver.observe(img));
+      } else {
+        // Fallback: load all
+        images.forEach(img => {
+          img.src = img.dataset.src;
+          img.removeAttribute('data-src');
+        });
+      }
+    }
+
     // ===== Copy Prompt =====
     function copyPrompt(id, btnEl) {
       const card = cards.find(c => c.id === id);
-      if (!card) return;
+      if (!card || !card.prompt) return;
 
       navigator.clipboard.writeText(card.prompt).then(() => {
-        if (btnEl) {
-          const original = btnEl.textContent;
-          btnEl.textContent = 'Copied!';
-          if (btnEl.classList.contains('modal-btn-primary')) {
-            btnEl.classList.add('copied');
-          }
-          setTimeout(() => {
-            btnEl.textContent = original === 'Copy' ? 'Copy' : 'Copy Prompt';
-            btnEl.innerHTML = btnEl.classList.contains('modal-btn-primary')
-              ? copyIcon + ' Copy Prompt'
-              : 'Copy';
-            btnEl.classList.remove('copied');
-          }, 2000);
-        }
-        showToast('Prompt copied to clipboard!');
+        onCopySuccess(btnEl);
       }).catch(() => {
         const textarea = document.createElement('textarea');
         textarea.value = card.prompt;
@@ -1168,8 +1486,25 @@
         textarea.select();
         document.execCommand('copy');
         document.body.removeChild(textarea);
-        showToast('Prompt copied to clipboard!');
+        onCopySuccess(btnEl);
       });
+    }
+
+    function onCopySuccess(btnEl) {
+      if (btnEl) {
+        const isModal = btnEl.classList.contains('modal-btn-primary');
+        btnEl.textContent = 'Copied!';
+        if (isModal) btnEl.classList.add('copied');
+        setTimeout(() => {
+          if (isModal) {
+            btnEl.innerHTML = copyIcon + ' Copy Prompt';
+            btnEl.classList.remove('copied');
+          } else {
+            btnEl.textContent = 'Copy';
+          }
+        }, 2000);
+      }
+      showToast('Prompt copied to clipboard!');
     }
 
     function showToast(message) {
@@ -1178,13 +1513,15 @@
       setTimeout(() => toast.classList.remove('show'), 2500);
     }
 
-    // ===== Modal =====
+    // ===== Modal (AC6 - mobile touch support, AC9 - deep link) =====
     function openModal(card) {
+      currentModalId = card.id;
       modalImage.src = card.image;
       modalImage.alt = card.title;
       modalTitle.textContent = card.title;
-      modalPrompt.textContent = card.prompt;
-      modalMeta.innerHTML = `<span>${card.category}</span> &middot; <span>${card.device}</span>`;
+      modalPrompt.textContent = card.prompt || '(No prompt text available)';
+      const catLabel = CATEGORY_LABELS[card.category] || card.category;
+      modalMeta.innerHTML = `<span>${catLabel}</span> &middot; <span>${card.device || 'Desktop'}</span>`;
       modalContributor.innerHTML = `
         <span>Contributed by</span>
         <a href="https://github.com/${card.contributor.username}" target="_blank" rel="noopener">
@@ -1195,14 +1532,24 @@
       modalCopyBtn.innerHTML = copyIcon + ' Copy Prompt';
       modalCopyBtn.classList.remove('copied');
       modalCopyBtn.onclick = () => copyPrompt(card.id, modalCopyBtn);
-      modalVoteBtn.href = `https://github.com/tygwan/awesome-stitch-design/discussions/${card.discussionNumber}`;
+
+      if (card.discussionNumber) {
+        modalVoteBtn.href = `https://github.com/tygwan/awesome-stitch-design/discussions/${card.discussionNumber}`;
+        modalVoteBtn.style.display = '';
+      } else {
+        modalVoteBtn.style.display = 'none';
+      }
+
       modalBackdrop.classList.add('open');
       document.body.style.overflow = 'hidden';
+      updateURL();
     }
 
     function closeModal() {
       modalBackdrop.classList.remove('open');
       document.body.style.overflow = '';
+      currentModalId = null;
+      updateURL();
     }
 
     modalClose.addEventListener('click', closeModal);
@@ -1213,16 +1560,6 @@
       if (e.key === 'Escape') closeModal();
     });
 
-    // ===== Filters =====
-    document.querySelectorAll('.filter-tab').forEach(tab => {
-      tab.addEventListener('click', () => {
-        document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
-        tab.classList.add('active');
-        activeCategory = tab.dataset.category;
-        renderCards();
-      });
-    });
-
     // ===== Search =====
     let searchTimeout;
     searchInput.addEventListener('input', () => {
@@ -1231,6 +1568,7 @@
       searchClear.classList.toggle('visible', val.length > 0);
       searchTimeout = setTimeout(() => {
         searchQuery = val.toLowerCase();
+        updateURL();
         renderCards();
       }, 200);
     });
@@ -1239,8 +1577,16 @@
       searchInput.value = '';
       searchClear.classList.remove('visible');
       searchQuery = '';
+      updateURL();
       renderCards();
       searchInput.focus();
+    });
+
+    // ===== Sort =====
+    sortSelect.addEventListener('change', () => {
+      currentSort = sortSelect.value;
+      updateURL();
+      renderCards();
     });
 
     function resetFilters() {
@@ -1248,8 +1594,10 @@
       searchQuery = '';
       searchInput.value = '';
       searchClear.classList.remove('visible');
-      document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
-      document.querySelector('.filter-tab[data-category="all"]').classList.add('active');
+      currentSort = 'category';
+      sortSelect.value = 'category';
+      buildFilterTabs();
+      updateURL();
       renderCards();
     }
 
@@ -1282,13 +1630,6 @@
       });
     }
 
-    // Re-run hover scroll after each render
-    const origRenderCards = renderCards;
-    renderCards = function() {
-      origRenderCards();
-      requestAnimationFrame(() => setTimeout(setupHoverScroll, 100));
-    };
-
     // ===== Contributors =====
     function renderContributors() {
       const contributorMap = {};
@@ -1312,8 +1653,56 @@
       `).join('');
     }
 
+    // ===== Guide Section =====
+    async function loadGuide() {
+      const guideEl = document.getElementById('guideContent');
+      try {
+        const resp = await fetch('https://raw.githubusercontent.com/tygwan/awesome-stitch-design/main/GUIDE.md');
+        if (!resp.ok) throw new Error('Not found');
+        const md = await resp.text();
+        guideEl.innerHTML = renderMarkdown(md);
+      } catch (e) {
+        guideEl.innerHTML = '<p>Guide is loading... Check <a href="https://github.com/tygwan/awesome-stitch-design/blob/main/GUIDE.md" target="_blank" rel="noopener">GUIDE.md on GitHub</a>.</p>';
+      }
+    }
+
+    function renderMarkdown(md) {
+      // Simple markdown renderer for the guide
+      let html = md
+        .replace(/^### (.+)$/gm, '<h3>$1</h3>')
+        .replace(/^## (.+)$/gm, '<h2>$1</h2>')
+        .replace(/^# (.+)$/gm, '<h1>$1</h1>')
+        .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+        .replace(/\*(.+?)\*/g, '<em>$1</em>')
+        .replace(/`(.+?)`/g, '<code>$1</code>')
+        .replace(/\[(.+?)\]\((.+?)\)/g, '<a href="$2" target="_blank" rel="noopener">$1</a>')
+        .replace(/^> (.+)$/gm, '<blockquote>$1</blockquote>')
+        .replace(/^- (.+)$/gm, '<li>$1</li>')
+        .replace(/^(\d+)\. (.+)$/gm, '<li>$2</li>');
+
+      // Wrap consecutive <li> in <ul>
+      html = html.replace(/(<li>.*<\/li>\n?)+/g, match => `<ul>${match}</ul>`);
+
+      // Wrap remaining lines in paragraphs
+      html = html.split('\n').map(line => {
+        if (line.trim() === '' || line.startsWith('<')) return line;
+        return `<p>${line}</p>`;
+      }).join('\n');
+
+      return html;
+    }
+
+    // ===== Handle popstate for back/forward =====
+    window.addEventListener('popstate', () => {
+      readURLState();
+      buildFilterTabs();
+      renderCards();
+      checkDeepLink();
+    });
+
     // ===== Init =====
     loadCards();
+    loadGuide();
   </script>
 </body>
 </html>
