@@ -28,10 +28,6 @@ jobs:
           set -euo pipefail
 
           # ── Parse structured fields from the issue body ──
-          # GitHub issue forms render as:
-          #   ### Label
-          #   <blank line>
-          #   Value
           parse_field() {
             local label="$1"
             echo "$ISSUE_BODY" | awk -v label="### $label" '
@@ -54,14 +50,12 @@ jobs:
 
           CATEGORY=$(parse_field "Category")
           TITLE=$(parse_field "Resource Title")
-          URL=$(parse_field "URL")
           DESCRIPTION=$(parse_field "Description")
           PROMPT=$(parse_multiline_field "Prompt Text (if submitting a prompt)")
           PREVIEW_RAW=$(parse_multiline_field "Preview Image")
 
           echo "Category:    $CATEGORY"
           echo "Title:       $TITLE"
-          echo "URL:         $URL"
           echo "Description: $DESCRIPTION"
           echo "Prompt:      $PROMPT"
           echo "Preview raw: $PREVIEW_RAW"
@@ -72,94 +66,103 @@ jobs:
             exit 0
           fi
 
-          # ── Map category to slug ──
+          # ── Map category to slug and README section ──
           case "$CATEGORY" in
-            "Prompts: Marketing & Public") CAT_SLUG="marketing" ;;
-            "Prompts: Product & App")      CAT_SLUG="product"   ;;
-            "Prompts: Commerce")           CAT_SLUG="commerce"  ;;
-            "Prompts: Utility")            CAT_SLUG="utility"   ;;
-            "Prompts: Admin")              CAT_SLUG="admin"     ;;
+            "Prompts: Marketing & Public") CAT_SLUG="marketing"; README_SECTION="## Prompts: Marketing and Public" ;;
+            "Prompts: Product & App")      CAT_SLUG="product";   README_SECTION="## Prompts: Product and App" ;;
+            "Prompts: Commerce")           CAT_SLUG="commerce";  README_SECTION="## Prompts: Commerce" ;;
+            "Prompts: Utility")            CAT_SLUG="utility";   README_SECTION="## Prompts: Utility" ;;
+            "Prompts: Admin")              CAT_SLUG="admin";     README_SECTION="## Prompts: Admin" ;;
             *)
               echo "Unknown Prompts category: $CATEGORY"
               exit 1
               ;;
           esac
 
-          # ── Generate slug from title ──
+          # ── Generate slug from title (lowercase, hyphens, no special chars) ──
           SLUG=$(echo "$TITLE" | tr '[:upper:]' '[:lower:]' | sed 's/[^a-z0-9]/-/g' | sed 's/--*/-/g' | sed 's/^-//;s/-$//')
           echo "Slug: $SLUG"
 
           # ── Download preview image if present ──
-          IMAGE_URL=""
+          IMAGE_PATH=""
           if echo "$PREVIEW_RAW" | grep -qoP 'https://[^\s\)]+\.(png|jpg|jpeg|gif|webp)'; then
             IMAGE_CDN=$(echo "$PREVIEW_RAW" | grep -oP 'https://[^\s\)]+\.(png|jpg|jpeg|gif|webp)' | head -1)
             echo "Downloading preview image: $IMAGE_CDN"
             mkdir -p "docs/previews/${CAT_SLUG}"
             IMAGE_PATH="docs/previews/${CAT_SLUG}/${SLUG}.png"
             curl -fsSL -o "$IMAGE_PATH" "$IMAGE_CDN"
-            IMAGE_URL="previews/${CAT_SLUG}/${SLUG}.png"
             echo "Image saved to: $IMAGE_PATH"
           else
             echo "No preview image found in submission."
           fi
 
-          # ── Ensure docs/data/prompts.json exists ──
-          mkdir -p docs/data
-          if [ ! -f docs/data/prompts.json ]; then
-            echo "[]" > docs/data/prompts.json
-          fi
+          # ── Add entry to README.md (Single Source of Truth) ──
+          # Find the last list item in the category section and append after it
+          README_LINE="- [${TITLE}](https://tygwan.github.io/awesome-stitch-design/#${SLUG}) - ${DESCRIPTION}."
 
-          # ── Escape strings for JSON ──
-          json_escape() {
-            python3 -c "import json,sys; print(json.dumps(sys.stdin.read().strip()))"
-          }
+          python3 << PYEOF
+          import re
 
-          TITLE_JSON=$(echo "$TITLE" | json_escape)
-          DESC_JSON=$(echo "$DESCRIPTION" | json_escape)
-          PROMPT_JSON=$(echo "$PROMPT" | json_escape)
-          IMAGE_JSON=$(echo "$IMAGE_URL" | json_escape)
+          with open('README.md', 'r') as f:
+              lines = f.readlines()
 
-          # ── Build new entry and append to prompts.json ──
-          NEW_ENTRY=$(python3 -c "
-          import json, sys
+          section = "$README_SECTION"
+          new_line = "$README_LINE\n"
 
-          title = $TITLE_JSON
-          desc = $DESC_JSON
-          prompt = $PROMPT_JSON
-          image = $IMAGE_JSON
-          slug = '$SLUG'
-          cat_slug = '$CAT_SLUG'
-          author = '$ISSUE_AUTHOR'
+          # Find the section and insert before the next ## section
+          in_section = False
+          last_list_idx = -1
 
-          entry = {
-              'id': slug,
-              'title': title,
-              'description': desc,
-              'prompt': prompt,
-              'image': image if image else '',
-              'category': cat_slug,
+          for i, line in enumerate(lines):
+              if line.strip() == section:
+                  in_section = True
+                  continue
+              if in_section and line.startswith('## ') and not line.startswith('### '):
+                  break
+              if in_section and line.startswith('- ['):
+                  last_list_idx = i
+
+          if last_list_idx >= 0:
+              lines.insert(last_list_idx + 1, new_line)
+          else:
+              print("WARNING: Could not find insertion point in README.md")
+              exit(1)
+
+          with open('README.md', 'w') as f:
+              f.writelines(lines)
+
+          print(f"Added entry to README.md after line {last_list_idx + 1}")
+          PYEOF
+
+          # ── Add metadata entry if prompt text provided ──
+          if [ -n "$PROMPT" ]; then
+            python3 << METAEOF
+          import json
+
+          slug = "$SLUG"
+          prompt = """$PROMPT"""
+          author = "$ISSUE_AUTHOR"
+          cat = "$CAT_SLUG"
+
+          meta_path = 'docs/data/metadata.json'
+          with open(meta_path, 'r') as f:
+              metadata = json.load(f)
+
+          metadata[slug] = {
+              'prompt': prompt.strip(),
               'device': 'Desktop',
-              'discussionNumber': None,
               'featured': False,
-              'contributor': {
-                  'username': author,
-                  'name': author
-              }
+              'discussionNumber': None,
+              'contributor': author
           }
 
-          with open('docs/data/prompts.json', 'r') as f:
-              data = json.load(f)
+          with open(meta_path, 'w') as f:
+              json.dump(metadata, f, indent=2, ensure_ascii=False)
+              f.write('\n')
 
-          data.append(entry)
-
-          with open('docs/data/prompts.json', 'w') as f:
-              json.dump(data, f, indent=2, ensure_ascii=False)
-
-          print(json.dumps(entry, indent=2))
-          ")
-
-          echo "New entry added:"
-          echo "$NEW_ENTRY"
+          print(f"Added metadata for {slug}")
+          METAEOF
+          fi
 
           # ── Create branch and commit ──
           BRANCH="add-prompt/${SLUG}"
@@ -167,9 +170,12 @@ jobs:
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git checkout -b "$BRANCH"
 
-          git add docs/data/prompts.json
-          if [ -n "$IMAGE_URL" ]; then
-            git add "docs/previews/${CAT_SLUG}/${SLUG}.png"
+          git add README.md
+          if [ -n "$IMAGE_PATH" ]; then
+            git add "$IMAGE_PATH"
+          fi
+          if [ -n "$PROMPT" ]; then
+            git add docs/data/metadata.json
           fi
 
           git commit -m "Add prompt: ${TITLE}
@@ -188,7 +194,10 @@ jobs:
 
           Submitted by @${ISSUE_AUTHOR}
 
-          ${DESCRIPTION}" \
+          ${DESCRIPTION}
+
+          ---
+          _Once merged, \`parse-readme.yml\` will auto-regenerate \`prompts.json\` from README._" \
             --label "auto-pr")
 
           PR_NUMBER=$(echo "$PR_URL" | grep -oP '\d+$')

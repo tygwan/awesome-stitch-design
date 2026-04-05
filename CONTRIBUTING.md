@@ -1,72 +1,90 @@
 # Contributing to Awesome Stitch Design
 
-Thank you for your interest in contributing! This project collects the best Google Stitch design prompts and resources.
+Thank you for your interest in contributing! This project curates the best Google Stitch design prompts and resources in one place.
 
-## How to Contribute
+There are two ways to contribute: **Pull Request** (preferred) or **Issue**.
 
-### Option 1: Pull Request (Preferred)
+---
 
-1. Fork this repository
-2. Add your prompt to `README.md` and the gallery (`docs/index.html`)
-3. Add a preview screenshot to `docs/previews/{category}/`
-4. Submit a Pull Request
+## Option 1: Pull Request (Preferred)
 
-### Option 2: Issue
+Contributing a prompt requires editing just **2 files**. CI handles everything else.
 
-[Submit a resource via Issue](https://github.com/tygwan/awesome-stitch-design/issues/new?template=submit-resource.yml) and we'll add it for you.
+### Step 1: Fork the repo
 
-## Adding a Design Prompt
+Fork [tygwan/awesome-stitch-design](https://github.com/tygwan/awesome-stitch-design) and clone your fork locally.
 
-Contributing a prompt requires 3 files:
+### Step 2: Add one line to README.md
 
-### Step 1: Add to README.md
-
-Add your prompt under the correct category/subcategory:
+Find the correct category and subcategory in `README.md` and add your entry:
 
 ```markdown
-- **Your Title** - `Your detailed Stitch prompt text here` — Brief description of the result.
+- [Your Title](https://tygwan.github.io/awesome-stitch-design/#your-slug) - Short description of the design.
 ```
 
-Categories: Marketing & Public, Product & App, Commerce, Utility, Admin.
+**Slug rules:** lowercase, hyphens instead of spaces, no special characters.
 
-### Step 2: Add a preview image
+| Original title | Slug |
+|---|---|
+| SaaS Product Landing | `saas-product-landing` |
+| E-Commerce Dashboard | `e-commerce-dashboard` |
+| Mobile Fitness App | `mobile-fitness-app` |
 
-1. Generate your design in [Google Stitch](https://stitch.withgoogle.com)
-2. Download the screenshot (1280px width recommended)
-3. Save to `docs/previews/{category}/your-filename.png`
+### Step 3: Add a preview screenshot
 
-Category folders: `marketing`, `product`, `commerce`, `utility`, `admin`
+Save your Stitch-generated screenshot to:
 
-### Step 3: Add a gallery card
-
-In `docs/index.html`, find the `const cards = [...]` array and add your entry:
-
-```javascript
-{
-  id: 'your-unique-id',
-  title: 'Your Title',
-  description: 'Brief description of the result.',
-  prompt: 'Your full Stitch prompt text...',
-  image: 'previews/{category}/your-filename.png',
-  category: 'marketing', // or product, commerce, utility, admin
-  device: 'Desktop',     // or Mobile
-  discussionNumber: null, // maintainer will create the Discussion
-  featured: false,
-  contributor: { username: 'your-github-username', name: 'Your Name' }
-}
+```
+previews/{category}/{your-slug}.png
 ```
 
-> The maintainer will create a GitHub Discussion for voting and assign the `discussionNumber` after merging.
+**Category folders:**
 
-## Adding a Resource Link
+| Category | Folder |
+|---|---|
+| Prompts: Marketing and Public | `marketing` |
+| Prompts: Product and App | `product` |
+| Prompts: Commerce | `commerce` |
+| Prompts: Utility | `utility` |
+| Prompts: Admin | `admin` |
 
-For non-prompt resources (tutorials, tools, articles), add to the appropriate section in `README.md`:
+Recommended: **1280px width**, PNG format.
+
+### Step 4: Submit your PR
+
+Push your branch and open a pull request. That's it — only 2 files.
+
+### What happens next
+
+- CI runs **awesome-lint** to validate your README entry format.
+- After merge, CI **auto-generates `prompts.json`** from README so the gallery stays in sync.
+- Your **GitHub profile** (as the PR author) is automatically displayed as the contributor in the gallery.
+
+> **You do not need to edit** `prompts.json`, `index.html`, `metadata.json`, or any other file.
+
+> **Note:** A maintainer may add supplementary metadata (device, featured, discussionNumber) in `metadata.json` after your PR is merged.
+
+---
+
+## Option 2: Submit via Issue
+
+Prefer not to deal with git? Use the issue template and a maintainer will add it for you:
+
+[Submit a resource via Issue](https://github.com/tygwan/awesome-stitch-design/issues/new?template=submit-resource.yml)
+
+---
+
+## Adding a Resource (Non-Prompt)
+
+For non-prompt resources such as tutorials, tools, or articles, just add a line to the appropriate resource section in `README.md`:
 
 ```markdown
-- [Resource Title](https://example.com) - Brief description of the resource.
+- [Resource Title](https://example.com) - Brief description.
 ```
 
-Keep entries in alphabetical order within resource sections.
+No preview image is needed for resource contributions.
+
+---
 
 ## Quality Standards
 
@@ -76,13 +94,15 @@ Keep entries in alphabetical order within resource sections.
 - **SFW content only** — No inappropriate content.
 - **Tested prompts** — Prompts must produce meaningful results in Stitch.
 
+---
+
 ## Pull Request Checklist
 
-- [ ] The resource/prompt is related to Google Stitch
-- [ ] Preview screenshot is included (for prompts)
-- [ ] Gallery card entry added to `docs/index.html` (for prompts)
-- [ ] Format guidelines are followed
-- [ ] Entry is in the correct category
+- [ ] Added one line to README.md in the correct category
+- [ ] Preview screenshot added to `previews/{category}/{slug}.png`
+- [ ] Followed awesome list format: `- [Title](url) - Description.`
+
+---
 
 ## Questions?
 
