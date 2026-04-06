@@ -1,6 +1,12 @@
 # Awesome Stitch Design [![Awesome](https://awesome.re/badge.svg)](https://awesome.re)
 
-> A curated list of awesome design prompts, resources, tutorials, and tools for [Google Stitch](https://stitch.withgoogle.com) — the AI-powered UI design tool by Google Labs that lets you generate high-fidelity UI designs from text prompts, voice input, or hand-drawn sketches.
+> [Google Stitch](https://stitch.withgoogle.com) — AI-powered UI design tool by Google Labs for generating high-fidelity designs from text prompts, voice input, or hand-drawn sketches.
+
+<p align="center">
+  <a href="https://tygwan.github.io/awesome-stitch-design/">
+    <img src="assets/gallery-cta.png" alt="Browse the Gallery" width="600">
+  </a>
+</p>
 
 ## Contents
 
